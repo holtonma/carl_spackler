@@ -14,6 +14,12 @@ module CARL_SPACKLER
   VERSION = '0.1.0'
 
   class PGA
+    
+    def oh_eight_urls
+      # html data urls for 2008 (only 4 round tournaments included)
+      
+    end
+    
     def fetch(url, incl_missed_cut=false)
       doc = Nokogiri::HTML(open(url))
       
@@ -27,8 +33,6 @@ module CARL_SPACKLER
         if table.attributes['class'] == 'altleaderboard'
           table.css('tr').each do |row|
             row.css('td').each do |cel|
-              # if it's a name, it's a hyperlink, so check for a
-              # need to improve name parsing
               innertext = cel.inner_text.strip()
               next unless innertext.length > 0
               #puts innertext
@@ -42,9 +46,26 @@ module CARL_SPACKLER
       
       if incl_missed_cut
         #missed cut
-        doc.css('table.altleaderboard2').each do |lb|
-          puts lb.inner_text
-        end  
+        # doc.css('table.altleaderboard2').each do |lb|
+        #   puts lb.inner_text
+        # end 
+        
+        doc.css('table.altleaderboard2').each do |table|
+          #puts table
+          #puts lb.inner_text
+          if table.attributes['class'] == 'altleaderboard2'
+            table.css('tr').each do |row|
+              row.css('td').each do |cel|
+                innertext = cel.inner_text.strip()
+                next unless innertext.length > 0
+                #puts innertext
+                cells << innertext
+              end
+              player_data << cells
+              cells = []
+            end
+          end
+        end 
       end   
       
       player_data
