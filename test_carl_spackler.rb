@@ -33,11 +33,11 @@ class TestOGWR < Test::Unit::TestCase
     url = "http://www.pgatour.com/leaderboards/current/r045/alt-1.html"
     players = pga.friendly_structure(pga.fetch(url, true))
     players.each do |p|
-      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par}"
+      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
     end
     puts "first player fname:  #{players[1].fname}"
     #puts players
-    assert_equal 71, players.length
+    assert_equal 130, players.length
   end
   
   def test_mercedes
@@ -45,7 +45,7 @@ class TestOGWR < Test::Unit::TestCase
     url = "http://www.pgatour.com/leaderboards/current/r060/alt-1.html"
     players = pga.friendly_structure(pga.fetch(url, true))
     players.each do |p|
-      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par}"
+      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
     end
     puts "first player fname:  #{players[1].fname}"
     #puts players
