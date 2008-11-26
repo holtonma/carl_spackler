@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby -w
 # created by Mark Holton  (holtonma@gmail.com)
-# copy as much as you want to
+# license: copy this code as much as you want to
 # 10-29-2008
 # purpose: scrape the golf tournament scores, and present it in a more usable form (Array of ostruct's)
-# using Hpricot, open-uri
+# using nokogiri, open-uri
 
 require 'rubygems'
 require 'nokogiri'
@@ -11,7 +11,7 @@ require 'open-uri'
 require 'ostruct'
 
 module CARL_SPACKLER
-  VERSION = '0.1.0'
+  VERSION = '0.2.0'
 
   class PGA
     
@@ -53,7 +53,7 @@ module CARL_SPACKLER
         tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip()
         tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip()
         tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip()
-        #puts "tourn name: #{doc.css('div.tourTournSubName').first.inner_text.strip()}"
+        #tourn.img = doc.css('div.tourTournLogo').first.inner_html
         tourn
     end
     
@@ -120,12 +120,12 @@ module CARL_SPACKLER
         playa.pos = p[1]
         playa.start = p[2]
         playa.name = p[3]
-        playa.fname = p[3].split(" ")[0]
-        playa.lname = p[3].split(" ")[1]
+        playa.fname = p[3].split(" ")[0] #need to improve this
+        playa.lname = p[3].split(" ")[1] #need to improve this
         playa.today = p[4]
         playa.thru = p[5]
         playa.to_par = p[6]
-        playa.r1 = p[7] #p[6]
+        playa.r1 = p[7] 
         playa.r2 = p[8]
         playa.r3 = p[9]
         playa.r4 = p[10]
