@@ -2,7 +2,7 @@
 # created by Mark Holton  (holtonma@gmail.com)
 # copy as much as you want to
 # 10-29-2008
-# purpose: scrape the official world golf ranking, and present it in a more usable form (Array of ostruct's)
+# purpose: scrape the golf tournament scores, and present it in a more usable form (Array of ostruct's)
 # using Hpricot, open-uri
 
 require 'rubygems'
@@ -15,9 +15,26 @@ module CARL_SPACKLER
 
   class PGA
     
-    def oh_eight_urls
+    def get_urls(year)
       # html data urls for 2008 (only 4 round tournaments included)
+      if year == 2008
+        urls = %w(
+          "http://www.pgatour.com/leaderboards/current/r475/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r010/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r457/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r007/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r005/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r003/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r004/alt-1.html"
+          "http://www.pgatour.com/leaderboards/current/r060/alt-1.html"
+        )
+      elsif year == 2007
+        urls = []
+      else
+        urls = []
+      end
       
+      urls
     end
     
     def fetch(url, incl_missed_cut=false)
@@ -28,14 +45,10 @@ module CARL_SPACKLER
             
       #made cut
       doc.css('table.altleaderboard').each do |table|
-        #puts table
-        #puts lb.inner_text
         if table.attributes['class'] == 'altleaderboard'
           table.css('tr').each do |row|
             row.css('td').each do |cel|
               innertext = cel.inner_text.strip()
-              #next unless innertext.length > 0
-              #puts innertext
               cells << innertext
             end
             player_data << cells
@@ -45,11 +58,6 @@ module CARL_SPACKLER
       end
       
       if incl_missed_cut
-        #missed cut
-        # doc.css('table.altleaderboard2').each do |lb|
-        #   puts lb.inner_text
-        # end 
-        
         doc.css('table.altleaderboard2').each do |table|
           #puts table
           #puts lb.inner_text
@@ -57,8 +65,6 @@ module CARL_SPACKLER
             table.css('tr').each do |row|
               row.css('td').each do |cel|
                 innertext = cel.inner_text.strip()
-                #next unless innertext.length > 0
-                #puts innertext
                 cells << innertext
               end
               player_data << cells
@@ -109,8 +115,6 @@ module CARL_SPACKLER
       
       players
     end
-    
-    
     
   end
   
