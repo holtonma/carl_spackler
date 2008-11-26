@@ -31,13 +31,27 @@ class TestOGWR < Test::Unit::TestCase
   def test_friendly_structure
     pga = PGA.new
     url = "http://www.pgatour.com/leaderboards/current/r045/alt-1.html"
-    players = pga.friendly_structure(pga.fetch(url, false))
+    players = pga.friendly_structure(pga.fetch(url, true))
     players.each do |p|
-      puts "#{p.pos} :: #{p.name} #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par}"
+      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par}"
     end
+    puts "first player fname:  #{players[1].fname}"
+    #puts players
     assert_equal 71, players.length
-    
   end
+  
+  def test_mercedes
+    pga = PGA.new
+    url = "http://www.pgatour.com/leaderboards/current/r060/alt-1.html"
+    players = pga.friendly_structure(pga.fetch(url, true))
+    players.each do |p|
+      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par}"
+    end
+    puts "first player fname:  #{players[1].fname}"
+    #puts players
+    assert_equal 31, players.length
+  end
+  
   
   
   
