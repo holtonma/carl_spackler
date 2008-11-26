@@ -19,14 +19,14 @@ module CARL_SPACKLER
       # html data urls for 2008 (only 4 round tournaments included)
       if year == 2008
         urls = %w(
-          "http://www.pgatour.com/leaderboards/current/r475/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r010/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r457/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r007/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r005/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r003/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r004/alt-1.html"
-          "http://www.pgatour.com/leaderboards/current/r060/alt-1.html"
+          http://www.pgatour.com/leaderboards/current/r475/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r010/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r457/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r007/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r005/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r003/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r004/alt-1.html
+          http://www.pgatour.com/leaderboards/current/r060/alt-1.html
         )
       elsif year == 2007
         urls = []
@@ -35,6 +35,26 @@ module CARL_SPACKLER
       end
       
       urls
+    end
+    
+    def tourney_info(url)
+      # tournament name
+      # tournament dates
+      # golf course
+      # location
+        # <div class="tourTournSubName">Mayakoba Golf Classic at Riviera Maya-Cancun</div>
+        # <div class="tourTournNameDates">Thursday Feb 21 – Sunday Feb 24, 2008</div>
+        # <div class="tourTournHeadLinks">El Camaleon Golf Club · Playa del Carmen, Quintana Roo, Mexico</div>
+        # <div class="tourTournLogo">
+        #   <img src="/.element/img/3.0/sect/tournaments/r457/tourn_logo.gif"/>
+        # </div>
+        doc = Nokogiri::HTML(open(url))
+        tourn = OpenStruct.new
+        tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip()
+        tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip()
+        tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip()
+        #puts "tourn name: #{doc.css('div.tourTournSubName').first.inner_text.strip()}"
+        tourn
     end
     
     def fetch(url, incl_missed_cut=false)
