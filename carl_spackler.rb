@@ -6,7 +6,6 @@
 # using Hpricot, open-uri
 
 require 'rubygems'
-require 'hpricot'
 require 'nokogiri'
 require 'open-uri'
 require 'ostruct'
@@ -29,6 +28,7 @@ module CARL_SPACKLER
           table.css('tr').each do |row|
             row.css('td').each do |cel|
               # if it's a name, it's a hyperlink, so check for a
+              # need to improve name parsing
               innertext = cel.inner_text.strip()
               next unless innertext.length > 0
               #puts innertext
