@@ -69,8 +69,9 @@ module CARL_SPACKLER
       player_data.each do |p|
         next unless (p.length > 0 && p[0] != "Pos")
         playa = OpenStruct.new
-        playa.pos = p[0]
-        playa.start = p[1]
+        playa.money = p[0]
+        playa.pos = p[1]
+        playa.start = p[2]
         playa.name = p[3]
         playa.fname = p[3].split(" ")[0]
         playa.lname = p[3].split(" ")[1]
