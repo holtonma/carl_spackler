@@ -71,17 +71,17 @@ module CARL_SPACKLER
         playa = OpenStruct.new
         playa.pos = p[0]
         playa.start = p[1]
-        playa.name = p[2]
-        playa.fname = p[2].split(" ")[0]
-        playa.lname = p[2].split(" ")[1]
-        playa.today = p[3]
-        playa.thru = p[4]
-        playa.to_par = p[5]
-        playa.r1 = p[6]
-        playa.r2 = p[7]
-        playa.r3 = p[8]
-        playa.r4 = p[9]
-        playa.total = p[10]
+        playa.name = p[3]
+        playa.fname = p[3].split(" ")[0]
+        playa.lname = p[3].split(" ")[1]
+        playa.today = p[4]
+        playa.thru = p[5]
+        playa.to_par = p[6]
+        playa.r1 = p[7] #p[6]
+        playa.r2 = p[8]
+        playa.r3 = p[9]
+        playa.r4 = p[10]
+        playa.total = p[11]
         players << playa
       end
       
