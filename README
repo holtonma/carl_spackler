@@ -4,9 +4,7 @@
 # purpose: scrape the golf scores from the web
 # using Nokogiri, open-uri 
 
-...Official Golf World Ranking OGWR... code that grabs the official golf world rankings... use the data as you wish in your own application... released as open source...
-
-
+...carl_spackler... code that grabs the official golf world rankings... use the data as you wish in your own application... 
 
 grab all the data, and do with it what you wish (store to a database each week, hold in your database to related to players on your website, etc).:
 
