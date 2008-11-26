@@ -33,10 +33,9 @@ class TestOGWR < Test::Unit::TestCase
     url = "http://www.pgatour.com/leaderboards/current/r045/alt-1.html"
     players = pga.friendly_structure(pga.fetch(url, true))
     players.each do |p|
-      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
+      #puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
     end
     puts "first player fname:  #{players[1].fname}"
-    #puts players
     assert_equal 130, players.length
   end
   
@@ -45,14 +44,26 @@ class TestOGWR < Test::Unit::TestCase
     url = "http://www.pgatour.com/leaderboards/current/r060/alt-1.html"
     players = pga.friendly_structure(pga.fetch(url, true))
     players.each do |p|
-      puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
+      #puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
     end
     puts "first player fname:  #{players[1].fname}"
-    #puts players
     assert_equal 31, players.length
   end
   
+  def test_08_urls
+    pga = PGA.new
+    urls = pga.get_urls(2008)
+    assert_equal 8, urls.length
+  end
   
+  def test_tourn_info
+    puts "hello world "
+    pga = PGA.new
+    tourney = pga.tourney_info(pga.get_urls(2008)[4])
+    puts tourney.name
+    puts tourney.dates
+    puts tourney.course
+  end
   
   
 end
