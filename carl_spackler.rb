@@ -34,7 +34,7 @@ module CARL_SPACKLER
           table.css('tr').each do |row|
             row.css('td').each do |cel|
               innertext = cel.inner_text.strip()
-              next unless innertext.length > 0
+              #next unless innertext.length > 0
               #puts innertext
               cells << innertext
             end
@@ -57,7 +57,7 @@ module CARL_SPACKLER
             table.css('tr').each do |row|
               row.css('td').each do |cel|
                 innertext = cel.inner_text.strip()
-                next unless innertext.length > 0
+                #next unless innertext.length > 0
                 #puts innertext
                 cells << innertext
               end
