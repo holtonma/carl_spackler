@@ -18,17 +18,14 @@ module CARL_SPACKLER
     def get_urls(year)
       if year == 2008
         # html data urls for 2008 
-        tourneys = %w(
-                r010 r457 r007 r005 r003 r004 r060 r483 r473 r018 r020
-                r012 r019 r480 r022 r021 r023 r025 r034 r035 r471 r029
-                r030 r032 r472 r476 r013 r027 r505 r028 r060 r054 r481 
-                r041 r047 r464 r482 r045 r475
-                )
-        urls = []
-        #http://www.pgatour.com/leaderboards/current/r475/alt-1.html :=> build all urls
-        tourneys.each do |t|
-          urls << "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
-        end
+        urls = %w(
+                  r010 r457 r007 r005 r003 r004 r060 r483 r473 r018 r020
+                  r012 r019 r480 r022 r021 r023 r025 r034 r035 r471 r029
+                  r030 r032 r472 r476 r013 r027 r505 r028 r060 r054 r481 
+                  r041 r047 r464 r482 r045 r475
+                ).map { |t|
+                  "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
+                }
       elsif year == 2007
         urls = []
       else
