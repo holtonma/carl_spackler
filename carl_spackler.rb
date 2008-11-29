@@ -11,7 +11,7 @@ require 'open-uri'
 require 'ostruct'
 
 module CARL_SPACKLER
-  VERSION = '0.2.0'
+  VERSION = '0.3.0'
 
   class PGA
     
@@ -38,10 +38,7 @@ module CARL_SPACKLER
     end
     
     def tourney_info(url)
-      # tournament name
-      # tournament dates
-      # golf course
-      # location
+      # tournament name, dates, golf course, location
         # <div class="tourTournSubName">Mayakoba Golf Classic at Riviera Maya-Cancun</div>
         # <div class="tourTournNameDates">Thursday Feb 21 – Sunday Feb 24, 2008</div>
         # <div class="tourTournHeadLinks">El Camaleon Golf Club · Playa del Carmen, Quintana Roo, Mexico</div>
@@ -79,8 +76,6 @@ module CARL_SPACKLER
       
       if incl_missed_cut
         doc.css('table.altleaderboard2').each do |table|
-          #puts table
-          #puts lb.inner_text
           if table.attributes['class'] == 'altleaderboard2'
             table.css('tr').each do |row|
               row.css('td').each do |cel|
@@ -98,24 +93,12 @@ module CARL_SPACKLER
     end
     
     def friendly_structure player_data
-      # PGA cells:
-      # Pos.    0
-      # Start   1
-      # Player  2
-      # Today   3
-      # Thru    4
-      # To Par  5
-      # R1      6
-      # R2      7
-      # R3      8
-      # R4      9
-      # Total  10
-      
       # take player_data and turn it into array of Ostructs
       players = []
       player_data.each do |p|
         next unless (p.length > 0 && p[0] != "Pos")
         playa = OpenStruct.new
+        # extract data from PGA cells:
         playa.money = p[0]
         playa.pos = p[1]
         playa.start = p[2]
@@ -133,9 +116,23 @@ module CARL_SPACKLER
         players << playa
       end
       
-      players
+      return players
     end
     
+    def to_screen
+      # if tourney info and players defined, output them to screen,
+      
+      # otherwise grab info, then output to screen
+      
+    end
+    
+    
+  end #end class PGA
+  
+  class Euro
+  end
+  
+  class Nationwide
   end
   
 end
