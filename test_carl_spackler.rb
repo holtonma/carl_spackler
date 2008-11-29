@@ -18,7 +18,7 @@ class TestCarlSpackler < Test::Unit::TestCase
     doc = Nokogiri(pga.to_html)
     assert_equal 157803, doc.to_s.length #make sure we have the correct file
     assert_equal Nokogiri::HTML::Document, doc.class
-      #  everytime Nokogiri::HTML(open(url)) is called inside of 'carl_spackler', 
+      #  everytime Nokogiri::HTML(open(url)) is called inside of 'carl_spackler' class, 
       #  return the mock sample, instead of hitting the network
   end
   
@@ -62,16 +62,15 @@ class TestCarlSpackler < Test::Unit::TestCase
   
   def test_friendly_structure
     pga = PGA.new
-    url = "http://www.pgatour.com/leaderboards/current/r045/alt-1.html"
+    url = pga.get_urls(2008)[4]
     flexmock(pga).should_receive(:open).with(url).and_return{
       @test_leaderboard
     }
     players = pga.friendly_structure(pga.fetch(url, true))
-    #players.each do |p|
-      #puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
-    #end
     assert_equal "Steve",  players[1].fname
     assert_equal 182, players.length
+    # need to add more validations here
+    #
   end
   
   def test_08_urls
@@ -91,6 +90,15 @@ class TestCarlSpackler < Test::Unit::TestCase
     assert_equal "Monday Feb 4 – Sunday Feb 10, 2008", tourney.dates
     assert_equal "Pebble Beach Golf Links · Pebble Beach, Calif.", tourney.course
   end
+  
+  def test_to_screen
+    pga = PGA.new
+    flexmock(pga).should_receive(:open).with(pga.get_urls(2008)[4]).and_return{
+      @test_leaderboard
+    }
+    assert_equal 1024, pga.to_screen.length 
+  end
+  
   
   
 end
