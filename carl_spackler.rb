@@ -122,8 +122,12 @@ module CARL_SPACKLER
     def to_screen
       # if tourney info and players defined, output them to screen,
       
+      #players.each do |p|
+        #puts "#{p.pos} :: [#{p.name}] #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par} (#{p.r1} #{p.r2} #{p.r3} #{p.r4})"
+      #end
+      to_screen_output = " some screen output here ...."
       # otherwise grab info, then output to screen
-      
+      to_screen_output
     end
     
     
