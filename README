@@ -4,7 +4,7 @@
 # purpose: scrape the golf scores from the web
 # using Nokogiri, open-uri 
 
-...carl_spackler... code that grabs the official golf world rankings... use the data as you wish in your own application... 
+...carl_spackler... extracts pga, euro, nationwide, and majors scores from web... use the data as you wish in your own application... 
 
 grab all the data, and do with it what you wish (store to a database each week, hold in your database to related to players on your website, etc).:
 
@@ -18,74 +18,185 @@ players.each do |p|
 end
 
 # example output from the above code! 
- $ :: Start Start  Pos. Today Thru
-118 :: T3 T3  1 -8 F
-228 :: T5 T5  2 -8 F
-94 :: T1 T1  T3 -1 F
-41 :: T1 T1  T3 -1 F
-143 :: T16 T16  5 -7 F
-88 :: T8 T8  T6 -4 F
-96 :: T5 T5  T6 -2 F
-153 :: T3 T3  T6 -1 F
-123 :: T24 T24  9 -5 F
-165 :: T16 T16  T10 -3 F
-135 :: T16 T16  T10 -3 F
-85 :: T14 T14  T10 -2 F
-154 :: T14 T14  T10 -2 F
-121 :: T8 T8  T10 -1 F
-141 :: T5 T5  T10 1 F
-147 :: T30 T30  T16 -4 F
-138 :: T40 T40  T16 -6 F*
-167 :: T30 T30  T16 -4 F
-73 :: T24 T24  T16 -3 F
-136 :: T8 T8  T16 E F
-192 :: T36 T36  T21 -4 F*
-125 :: T30 T30  T21 -3 F
-83 :: T40 T40  T21 -5 F*
-126 :: T16 T16  T21 -1 F
-219 :: T36 T36  T25 -3 F*
-32 :: T40 T40  T25 -4 F*
-171 :: T16 T16  T25 E F
-139 :: T16 T16  T25 E F
-72 :: T16 T16  T25 E F
-47 :: T16 T16  T25 E F
-31 :: T8 T8  T25 2 F
-116 :: T8 T8  T25 2 F
-133 :: T30 T30  T33 -1 F
-93 :: T30 T30  T33 -1 F
-152 :: T40 T40  T33 -3 F*
-78 :: T24 T24  T33 E F
-11 :: T40 T40  T33 -3 F*
-27 :: T24 T24  T33 E F
-21 :: T46 T46  T33 -4 F*
-104 :: T46 T46  T33 -4 F*
-33 :: T24 T24  T33 E F
-122 :: T49 T49  T33 -5 F*
-100 :: T30 T30  T43 E F
-9 :: T36 T36  T43 -1 F
-109 :: T40 T40  T43 -2 F*
-193 :: T24 T24  T43 1 F
-183 :: T55 T55  47 -4 F*
-187 :: T36 T36  T48 1 F*
-174 :: T46 T46  T48 -1 F*
-190 :: T8 T8  T48 6 F
-77 :: T55 T55  T48 -3 F*
-182 :: T49 T49  T52 -1 F*
-131 :: T49 T49  T52 -1 F*
-25 :: T49 T49  T52 -1 F*
-168 :: T55 T55  T52 -2 F*
-49 :: T61 T61  T52 -3 F*
-144 :: T61 T61  T52 -3 F*
-129 :: T61 T61  T52 -3 F*
-191 :: T68 T68  T52 -6 F*
-- :: T49 T49  T60 E F*
-64 :: T55 T55  T60 -1 F*
-111 :: T49 T49  T62 1 F*
-52 :: T61 T61  T62 -1 F*
-115 :: 67 67  64 -2 F*
-158 :: T55 T55  T65 2 F*
-28 :: 66 66  T65 E F*
-196 :: T61 T61  T67 2 F*
-145 :: T68 T68  T67 -1 F*
-245 :: T55 T55  69 4 F*
-161 :: 70 70  70 8 F*
+Pos. :: Player Player  Start Thru To Par
+1 :: Steve Lowery (PB) Steve Lowery T5 F -10
+2 :: Vijay Singh (PB) Vijay Singh T1 F -10
+T3 :: Corey Pavin (PB) Corey Pavin T26 F* -9
+T3 :: John Mallinger (PB) John Mallinger T37 F* -9
+T3 :: Dudley Hart (PB) Dudley Hart T1 F -9
+6 :: Jason Day (PB) Jason Day T5 F -8
+T7 :: Nicholas Thompson (PB) Nicholas Thompson T19 F -6
+T7 :: Dustin Johnson (PB) Dustin Johnson T3 F -6
+T9 :: Jason Gore (PB) Jason Gore T26 F -5
+T9 :: Joe Ogilvie (PB) Joe Ogilvie T26 F* -5
+T9 :: Tag Ridings (PB) Tag Ridings T19 F -5
+T9 :: Brent Geiberger (PB) Brent Geiberger T26 F* -5
+T9 :: Y.E. Yang (PB) Y.E. Yang T5 F -5
+T14 :: Jim Furyk (PB) Jim Furyk T26 F* -4
+T14 :: Padraig Harrington (PB) Padraig Harrington T19 F -4
+T14 :: James Driscoll (PB) James Driscoll T19 F -4
+T14 :: Daisuke Maruyama (PB) Daisuke Maruyama T37 F* -4
+T14 :: D.A. Points (PB) D.A. Points T11 F -4
+T14 :: Parker McLachlin (PB) Parker McLachlin T37 F* -4
+T14 :: Mike Weir (PB) Mike Weir T45 F* -4
+T14 :: Fredrik Jacobson (PB) Fredrik Jacobson T5 F -4
+T14 :: Shane Bertsch (PB) Shane Bertsch T45 F* -4
+T14 :: Michael Allen (PB) Michael Allen T3 F -4
+T24 :: Pat Perez (PB) Pat Perez T26 F -3
+T24 :: Chris Riley (PB) Chris Riley T26 F* -3
+T24 :: Andrew Buckle (PB) Andrew Buckle T26 F* -3
+T24 :: Davis Love III (PB) Davis Love T26 F* -3
+T24 :: Marco Dawson (PB) Marco Dawson T37 F* -3
+T24 :: Bo Van Pelt (PB) Bo Van T45 F* -3
+T24 :: Paul Stankowski (PB) Paul Stankowski T45 F* -3
+T24 :: Craig Kanada (PB) Craig Kanada T45 F* -3
+T24 :: Jeff Quinney (PB) Jeff Quinney T5 F -3
+T24 :: Ryan Armour (PB) Ryan Armour T5 F -3
+T34 :: Matt Kuchar (PB) Matt Kuchar T19 F -2
+T34 :: John Riegger (PB) John Riegger T19 F -2
+T34 :: Tom Pernice, Jr. (PB) Tom Pernice, T37 F* -2
+T34 :: Tim Herron (PB) Tim Herron T11 F -2
+T34 :: Lee Janzen (PB) Lee Janzen T45 F* -2
+T34 :: Jay Williamson (PB) Jay Williamson T11 F -2
+T34 :: Jin Park (PB) Jin Park T45 F* -2
+T34 :: Mark Wilson (PB) Mark Wilson T11 F -2
+T34 :: Robert Damron (PB) Robert Damron T11 F -2
+T43 :: Mathew Goggin (PB) Mathew Goggin T26 F -1
+T43 :: Kevin Na (PB) Kevin Na T26 F* -1
+T43 :: Olin Browne (PB) Olin Browne T37 F* -1
+T43 :: Justin Leonard (PB) Justin Leonard T45 F* -1
+T43 :: Alejandro Canizares (PB) Alejandro Canizares T45 F* -1
+T48 :: Robert Floyd (PB) Robert Floyd T19 F E
+T48 :: Kent Jones (PB) Kent Jones T11 F E
+T48 :: Tim Petrovic (PB) Tim Petrovic T45 F* E
+T48 :: Greg Kraft (PB) Greg Kraft T45 F* E
+T48 :: Ryan Moore (PB) Ryan Moore T45 F* E
+T53 :: Charlie Wi (PB) Charlie Wi T45 F* 1
+T53 :: Jim McGovern (PB) Jim McGovern T11 F 1
+T53 :: Jonathan Kaye (PB) Jonathan Kaye T11 F 1
+T53 :: Carlos Franco (PB) Carlos Franco T45 F* 1
+T53 :: Jeff Maggert (PB) Jeff Maggert T45 F* 1
+T58 :: Nick Watney (PB) Nick Watney T37 F* 2
+T58 :: Alex Cejka (PB) Alex Cejka T37 F* 2
+T58 :: Brandt Snedeker (PB) Brandt Snedeker T45 F* 2
+MDF :: Scott Sterling Scott Sterling T61 -- 
+MDF :: Grant Waite Grant Waite T61 -- 
+MDF :: Matt Jones Matt Jones T61 -- 
+MDF :: Brian Davis Brian Davis T61 -- 
+MDF :: J.B. Holmes J.B. Holmes T61 -- 
+MDF :: D.J. Trahan D.J. Trahan T61 -- 
+MDF :: Patrick Sheehan Patrick Sheehan T61 -- 
+MDF :: Steve Allan Steve Allan T61 -- 
+MDF :: John Merrick John Merrick T61 -- 
+MDF :: Jeff Overton Jeff Overton T61 -- 
+Pos. :: Player Player  Start Thru To Par
+- :: Ted Purdy Ted Purdy T71 -- 
+- :: Jonathan Moore Jonathan Moore T71 -- 
+- :: Todd Demsey Todd Demsey T71 -- 
+- :: Rocco Mediate Rocco Mediate T71 -- 
+- :: Brad Elder Brad Elder T71 -- 
+- :: Craig Barlow Craig Barlow T71 -- 
+- :: Roland Thatcher Roland Thatcher T71 -- 
+- :: Doug LaBelle II Doug LaBelle T71 -- 
+- :: David Frost David Frost T71 -- 
+- :: Brenden Pappas Brenden Pappas T71 -- 
+- :: Tom Scherrer Tom Scherrer T71 -- 
+- :: Richard S. Johnson Richard S. T71 -- 
+- :: Peter Tomasulo Peter Tomasulo T71 -- 
+- :: Omar Uresti Omar Uresti T84 -- 
+- :: Tom Lehman Tom Lehman T84 -- 
+- :: Kevin Streelman Kevin Streelman T84 -- 
+- :: Chris Stroud Chris Stroud T84 -- 
+- :: Greg Owen Greg Owen T84 -- 
+- :: Gavin Coles Gavin Coles T84 -- 
+- :: Eric Axley Eric Axley T84 -- 
+- :: Johnson Wagner Johnson Wagner T84 -- 
+- :: Bob May Bob May T84 -- 
+- :: Marc Turnesa Marc Turnesa T84 -- 
+- :: Robert Gamez Robert Gamez T84 -- 
+- :: Bob Sowards Bob Sowards T95 -- 
+- :: J.P. Hayes J.P. Hayes T95 -- 
+- :: Larry Mize Larry Mize T95 -- 
+- :: Skip Kendall Skip Kendall T95 -- 
+- :: Jonathan Byrd Jonathan Byrd T95 -- 
+- :: Dicky Pride Dicky Pride T95 -- 
+- :: Daniel Chopra Daniel Chopra T95 -- 
+- :: Kenneth Ferrie Kenneth Ferrie T95 -- 
+- :: Tim Clark Tim Clark T95 -- 
+- :: Ken Duke Ken Duke T95 -- 
+- :: J.J. Henry J.J. Henry T95 -- 
+- :: Rick Leibovich Rick Leibovich T95 -- 
+- :: Charley Hoffman Charley Hoffman T95 -- 
+- :: Garrett Willis Garrett Willis T95 -- 
+- :: Chris DiMarco Chris DiMarco T95 -- 
+- :: Paul Claxton Paul Claxton T95 -- 
+- :: Joel Kribel Joel Kribel T111 -- 
+- :: Glen Day Glen Day T111 -- 
+- :: Ryan Palmer Ryan Palmer T111 -- 
+- :: Jason Allred Jason Allred T111 -- 
+- :: Dan Forsman Dan Forsman T111 -- 
+- :: Andrew Magee Andrew Magee T111 -- 
+- :: Scott McCarron Scott McCarron T111 -- 
+- :: Frank Lickliter II Frank Lickliter T111 -- 
+- :: Hunter Mahan Hunter Mahan T111 -- 
+- :: David Lutterus David Lutterus T111 -- 
+- :: Tommy Gainey Tommy Gainey T121 -- 
+- :: Martin Laird Martin Laird T121 -- 
+- :: Len Mattiace Len Mattiace T121 -- 
+- :: Brad Adamonis Brad Adamonis T121 -- 
+- :: Brian Bateman Brian Bateman T121 -- 
+- :: Michael Letzig Michael Letzig T121 -- 
+- :: Jimmy Walker Jimmy Walker T121 -- 
+- :: Chris Smith Chris Smith T121 -- 
+- :: Andres Romero Andres Romero T121 -- 
+- :: Phil Mickelson Phil Mickelson T121 -- 
+- :: Mathias Gronberg Mathias Gronberg T121 -- 
+- :: Dean Wilson Dean Wilson T121 -- 
+- :: Paul Goydos Paul Goydos T133 -- 
+- :: Jim Gallagher, Jr. Jim Gallagher, T133 -- 
+- :: Spike McRoy Spike McRoy T133 -- 
+- :: Michael Sim Michael Sim T133 -- 
+- :: Harrison Frazar Harrison Frazar T133 -- 
+- :: Kris Cox Kris Cox T133 -- 
+- :: Steve Pate Steve Pate T133 -- 
+- :: Brandel Chamblee Brandel Chamblee T133 -- 
+- :: John Huston John Huston T141 -- 
+- :: Steve Elkington Steve Elkington T141 -- 
+- :: Duffy Waldorf Duffy Waldorf T141 -- 
+- :: Travis Perkins Travis Perkins T141 -- 
+- :: Mark Brooks Mark Brooks T141 -- 
+- :: Tom Byrum Tom Byrum T141 -- 
+- :: Chad Collins Chad Collins T141 -- 
+- :: Richard Johnson Richard Johnson 148 -- 
+- :: Willie Wood Willie Wood T149 -- 
+- :: John Daly John Daly T149 -- 
+- :: Kevin Sutherland Kevin Sutherland T149 -- 
+- :: Greg Norman Greg Norman T149 -- 
+- :: Bob Heintz Bob Heintz T149 -- 
+- :: Phil Tataurangi Phil Tataurangi T154 -- 
+- :: Kyle Thompson Kyle Thompson T154 -- 
+- :: Peter Jacobsen Peter Jacobsen T154 -- 
+- :: Brett Rumford Brett Rumford T154 -- 
+- :: John Morse John Morse T154 -- 
+- :: Colt Knost Colt Knost T154 -- 
+- :: Guy Boros Guy Boros T160 -- 
+- :: Billy Andrade Billy Andrade T160 -- 
+- :: Bob Burns Bob Burns T160 -- 
+- :: Ryan Dillon Ryan Dillon T160 -- 
+- :: Cody Freeman Cody Freeman T164 -- 
+- :: Tadd Fujikawa Tadd Fujikawa T164 -- 
+- :: Craig Stadler Craig Stadler T164 -- 
+- :: Justin Bolli Justin Bolli T164 -- 
+- :: Jason Dufner Jason Dufner T164 -- 
+- :: Jeff Gove Jeff Gove T164 -- 
+- :: Jay Delsing Jay Delsing T164 -- 
+- :: David Duval David Duval T164 -- 
+- :: Ron Whittaker Ron Whittaker T172 -- 
+- :: Tim Wilkinson Tim Wilkinson T172 -- 
+- :: J.L. Lewis J.L. Lewis 174 -- 
+- :: Mike Wilson Mike Wilson T175 -- 
+- :: Joey Sindelar Joey Sindelar T175 -- 
+- :: Mark Hensby Mark Hensby T177 -- 
+- :: Mike Heinen Mike Heinen T177 -- 
+- :: Ross Fisher Ross Fisher 179 -- 
+- :: Keith Clearwater Keith Clearwater 180 --
