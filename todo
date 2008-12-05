@@ -1,3 +1,15 @@
-- extract names from link
-- better tests
-- where to put db update code??  separate module probably
+orphans... 
+- check for similar, add alias names to separate table
+- if not an alias but just a new name, add it to the database
+
+nil error
+- mock out a couple sample files
+- find error
+- fix error
+
+US Open, PGA, Masters, British
+- mock files
+- add logic to class
+
+Display pages for tourneys
+- Rails code to display tourney data (design and implement)

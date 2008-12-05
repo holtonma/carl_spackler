@@ -33,16 +33,31 @@ class Leaderboard
     @db = db #ip, user, pass, db, ...
     @num_inserts = 0
     @event_id = self.eventid(self.eventnameid(@tourney.name))
+    @orphans = [] #players not matched
   end
   
-  attr_accessor :tourney, :players, :num_inserts
+  attr_accessor :tourney, :players, :num_inserts, :orphans
     
   def name_to_id(fname, lname)
     dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
-    q_name = dbh.query("SELECT id FROM golfer WHERE fname = '#{fname}' AND lname = '#{lname}' ORDER BY id DESC")
+    first = dbh.escape_string(fname)
+    last = dbh.escape_string(lname)
+    q_name = dbh.query("SELECT id FROM golfer WHERE fname = '#{first}' AND lname = '#{last}' ORDER BY id DESC")
     golfer_id = -1
     q_name.each do |row|
        golfer_id = row[0]
+    end
+    
+    # check altnernate names:
+    # TBD
+    
+    if golfer_id == -1 || golfer_id == 0
+      # orphan = {}
+      # orphan[:time] = Time.now
+      # orphan[:fname] = fname
+      # orphan[:lname] = lname
+      orphan = "#{lname}, #{fname}"
+      @orphans << orphan
     end
     
     golfer_id.to_i
@@ -102,7 +117,7 @@ class Leaderboard
     # check event_names:
     name_id = self.eventnameid(name)
     if name_id == 0 # doesn't exist in event_names
-        q = dbh.query("INSERT INTO event_names (name) VALUES ('#{i_name}') ")
+        q = dbh.query("INSERT INTO event_names (name) VALUES ('#{name}') ")
         name_id = self.eventnameid(name)
     end
     
@@ -111,7 +126,7 @@ class Leaderboard
     @q_check = dbh.query("SELECT id FROM events WHERE name_id = '#{name_id}'")
     if event_id == 0 # doesn't exist in events:
       q2 = dbh.query("INSERT INTO events (name_id, year, name, dates, course, scraped)
-          VALUES(#{name_id}, #{i_year}, '#{i_name}', '#{i_dates}', '#{i_course}', 0)")
+          VALUES(#{name_id}, #{year}, '#{name}', '#{dates}', '#{course}', 0)")
       return self.eventid(name_id)
     else
       return event_id
@@ -137,12 +152,14 @@ class Leaderboard
                   VALUES (#{g_id}, '#{p.to_par}', '#{p.today}', '#{p.money}', '#{p.pos}', #{made_cut}, '#{p.thru}', #{event_id}, '#{p.r1}', '#{p.r2}', '#{p.r3}',
                   '#{p.r4}', '#{p.total}')"
       #puts insert_query
+      puts "#{p.lname}, #{p.fname} inserted (event_id: #{event_id})."
       dbh.query(insert_query)
     elsif in_tourney == 1 && g_id > 0# update
       update_query = "UPDATE golfer_history SET to_par = '#{p.to_par}', today = '#{p.today}', money = '#{p.money}', pos = '#{p.pos}', 
                   madecut = 1, thru = '#{p.thru}', r1 = '#{p.r1}', r2 = '#{p.r2}', r3 = '#{p.r3}', r4 = '#{p.r4}', total = '#{p.total}'
                   WHERE golfer_id = #{g_id} AND event_id = #{event_id}"
       #puts update_query
+      puts "#{p.lname}, #{p.fname} updated (event_id: #{event_id})."
       dbh.query(update_query)
     else
       # > 1 means something strange, so don't do anything
