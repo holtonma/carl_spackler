@@ -76,8 +76,8 @@ class TestCarlSpackler < Test::Unit::TestCase
   def test_08_urls
     pga = PGA.new
     urls = pga.get_urls(2008)
-    assert_equal 39, urls.length
-    assert_equal 'http://www.pgatour.com/leaderboards/current/r003/alt-1.html', pga.get_urls(2008)[4]
+    assert_equal 24, urls.length
+    assert_equal 'http://www.pgatour.com/leaderboards/current/r012/alt-1.html', pga.get_urls(2008)[4]
   end
   
   def test_tourn_info

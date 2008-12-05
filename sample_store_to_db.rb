@@ -10,14 +10,6 @@ require 'mysql'
 require 'ostruct'
 require 'iconv'
 
-#monkey patch String
-class String
-  def to_ascii_iconv
-    converter = Iconv.new('ASCII//IGNORE//TRANSLIT', 'UTF-8')
-    converter.iconv(self).unpack('U*').select{ |cp| cp < 127 }.pack('U*')
-  end
-end
-
 
 class DB 
   attr_accessor :ip, :user, :pass, :name
