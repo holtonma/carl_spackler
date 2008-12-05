@@ -7,78 +7,168 @@
 
 require 'rubygems'
 require 'mysql'
+require 'ostruct'
+require 'iconv'
+
+#monkey patch String
+class String
+  def to_ascii_iconv
+    converter = Iconv.new('ASCII//IGNORE//TRANSLIT', 'UTF-8')
+    converter.iconv(self).unpack('U*').select{ |cp| cp < 127 }.pack('U*')
+  end
+end
+
+
+class DB 
+  attr_accessor :ip, :user, :pass, :name
+  def initialize(ip, user, pass, name)
+    @ip, @user, @pass, @name = ip, user, pass, name
+  end
+end
 
 class Leaderboard
-  def initialize file_or_url, root_path, leaderboard_path=""
-    @file_or_url = file_or_url
-    @root_path = root_path
-    @leaderboard_path = leaderboard_path
-    @leaders = []
+  def initialize tourney, players, db 
+    @tourney = tourney
+    @players = players
+    @db = db #ip, user, pass, db, ...
+    @num_inserts = 0
+    @event_id = self.eventid(self.eventnameid(@tourney.name))
   end
   
-  attr_accessor :root_path, :leaderboard_path, :leaders
-  
-  def split_name full_name
-    names = {}
-    split_names = full_name.split(" ")
-    if split_names.length == 3
-      names[:first] = split_names[0]
-      names[:last] = "#{split_names[1]} #{split_names[2]}" #jr., sr., III, etc
-    else
-      names[:first] = split_names[0]
-      names[:last] = split_names[1]
+  attr_accessor :tourney, :players, :num_inserts
+    
+  def name_to_id(fname, lname)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    q_name = dbh.query("SELECT id FROM golfer WHERE fname = '#{fname}' AND lname = '#{lname}' ORDER BY id DESC")
+    golfer_id = -1
+    q_name.each do |row|
+       golfer_id = row[0]
     end
     
-    names
+    golfer_id.to_i
   end
   
-  def update_db(scraped_name, current_score, thru)
-    # playa.money = p[0]
-    # playa.pos = p[1]
-    # playa.start = p[2]
-    # playa.name = p[3]
-    # playa.fname = p[3].split(" ")[0] #need to improve this
-    # playa.lname = p[3].split(" ")[1] #need to improve this
-    # playa.today = p[4]
-    # playa.thru = p[5]
-    # playa.to_par = p[6]
-    # playa.r1 = p[7] 
-    # playa.r2 = p[8]
-    # playa.r3 = p[9]
-    # playa.r4 = p[10]
-    # playa.total = p[11]
-   
-   dbh = Mysql.real_connect("localhost", "testuser", "testpass", "golfap")
-   
-   q_preupdate = dbh.query("SELECT CurrentScoreRelPar, GolferFirstName, GolferLastName 
-     FROM tgolfer WHERE GolferFirstName = '#{first_name}' 
-     AND GolferLastName = '#{last_name}'")
-   if q_preupdate.num_rows == 1
-     q_update = dbh.query("UPDATE tgolfer SET CurrentScoreRelPar = #{current_score} 
-     WHERE GolferFirstName = '#{first_name}' 
-     AND GolferLastName = '#{last_name}'")
-     q_getupdate = dbh.query("SELECT CurrentScoreRelPar, GolferFirstName, GolferLastName 
-     FROM tgolfer WHERE GolferFirstName = '#{first_name}' 
-     AND GolferLastName = '#{last_name}'")
-     q_getupdate.each do |row|
-       printf "%s, %s, %s\n", row[0], row[1], row[2]
-     end
-     q_getupdate.free
-     q_preupdate.free
-   else
-     puts "no match with : #{scraped_name}, therefore inserting new..."
-     q_insert = dbh.query("INSERT INTO tgolfer (GolferFirstName, 
-       GolferLastName, CurrentScoreRelPar, DegsofWallyVal, 
-       GolferImage, active, madecut, thru) 
-       VALUES ('#{first_name}', '#{last_name}', 0, 2, 'qualifier.gif', 1, 0, 0)")
-   end
-   dbh.close if dbh #disconnect
+  def check_event_exists(name, date_str, course_str)
+    # check event to see if: name, dates, course exists
+    # => yes: skip to next URL
+    # => no: insert row into 'events' table
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    tourney = name #dbh.escape_string(name)
+    dates = dbh.escape_string(date_str)
+    course_name = course_str #dbh.escape_string(course_str)
+    
+    q_check = dbh.query("SELECT id FROM events
+        WHERE name = '#{tourney}'
+        AND dates = '#{dates}'
+        AND course = '#{course_name}'
+        AND scraped = 1")
+    records = q_check.num_rows()
+    q_check.free
+    
+    records #0 means no rows... 1 = exists
   end
   
-  def update_all_leaders leaders
-    leaders.each do |player|
-      update_db(player[:player], player[:to_par], player[:thru])
+  
+  def eventnameid event_name
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    tourney = event_name #dbh.escape_string(event_name)
+    q = dbh.query("SELECT id FROM event_names
+        WHERE name = '#{tourney}'
+        ")
+        
+    event_name_id = 0
+    
+    if q.num_rows() == 1
+      q.each{ |row| event_name_id = row[0] }
     end
+    
+    event_name_id.to_i
+  end
+  
+  
+  def eventid event_name_id
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    q = dbh.query("SELECT id FROM events WHERE name_id = '#{event_name_id.to_i}'")
+        
+    event_name_id = 0
+    q.each{ |row| event_name_id = row[0] }
+    
+    event_name_id.to_i
+  end  
+  
+  def insert_new_event(name, year, dates, course)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    
+    # check event_names:
+    name_id = self.eventnameid(name)
+    if name_id == 0 # doesn't exist in event_names
+        q = dbh.query("INSERT INTO event_names (name) VALUES ('#{i_name}') ")
+        name_id = self.eventnameid(name)
+    end
+    
+    # check events, and return event_id after insert (or return existing):
+    event_id = self.eventid(name_id)
+    @q_check = dbh.query("SELECT id FROM events WHERE name_id = '#{name_id}'")
+    if event_id == 0 # doesn't exist in events:
+      q2 = dbh.query("INSERT INTO events (name_id, year, name, dates, course, scraped)
+          VALUES(#{name_id}, #{i_year}, '#{i_name}', '#{i_dates}', '#{i_course}', 0)")
+      return self.eventid(name_id)
+    else
+      return event_id
+    end    
+  end
+  
+  def golfer_in_tournament_status(p, event_id)
+    playa_id = self.name_to_id(p.fname, p.lname)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    # how this will be consumed:
+    # 0 -- insert
+    # 1 -- update
+    # > 1 -- do nothing
+    dbh.query("SELECT id FROM golfer_history WHERE golfer_id = '#{playa_id}' AND event_id = #{event_id}").num_rows()
+  end
+    
+  def store_player(p, event_id, made_cut)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    in_tourney = self.golfer_in_tournament_status(p, event_id)
+    g_id = self.name_to_id(p.fname, p.lname)
+    if in_tourney == 0 && g_id > 0# insert  ------- '#{p.thru}'
+      insert_query = "INSERT INTO golfer_history(golfer_id, to_par, today, money, pos, madecut, thru, event_id, r1, r2, r3, r4, total) 
+                  VALUES (#{g_id}, '#{p.to_par}', '#{p.today}', '#{p.money}', '#{p.pos}', #{made_cut}, '#{p.thru}', #{event_id}, '#{p.r1}', '#{p.r2}', '#{p.r3}',
+                  '#{p.r4}', '#{p.total}')"
+      #puts insert_query
+      dbh.query(insert_query)
+    elsif in_tourney == 1 && g_id > 0# update
+      update_query = "UPDATE golfer_history SET to_par = '#{p.to_par}', today = '#{p.today}', money = '#{p.money}', pos = '#{p.pos}', 
+                  madecut = 1, thru = '#{p.thru}', r1 = '#{p.r1}', r2 = '#{p.r2}', r3 = '#{p.r3}', r4 = '#{p.r4}', total = '#{p.total}'
+                  WHERE golfer_id = #{g_id} AND event_id = #{event_id}"
+      #puts update_query
+      dbh.query(update_query)
+    else
+      # > 1 means something strange, so don't do anything
+    end
+    
+    q_history_id = dbh.query("SELECT id FROM golfer_history WHERE golfer_id = #{g_id} AND event_id = #{event_id}")
+    history_id = -1
+    q_history_id.each do |row|
+       history_id = row[0]
+    end
+    
+    history_id.to_i
+    # return id in golfer_history created or updated
+  end
+  
+  
+  def store_tourney
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    made_cut = 1
+    ids_stored = []
+    @players.each do |p|
+      ids_stored << self.store_player(p, @event_id, 1) unless p.thru == 'Thru'
+      #puts "#{p.pos} :: #{p.name} #{p.fname} #{p.lname} #{p.r1} #{p.r2} #{p.r3} #{p.r4} #{p.start} #{p.thru} #{p.to_par}"
+    end
+    
+    ids_stored
   end
   
   
