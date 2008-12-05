@@ -20,18 +20,19 @@ class String
 end
 
 module CARL_SPACKLER
-  VERSION = '0.4.0'
+  VERSION = '0.5.0'
 
   class PGA
         
     def get_urls(year)
       if year == 2008
-        # html data urls for 2008 
+        # html data urls for 2008  
+          #NoMethodError: undefined method ‘inner_text’ for nil:NilClass (on tournament info it seems)
+          #don't work: r020 r480 r023 r034 r035 r030 r476 r027 r505 r028 r060 r045 r004 r060 r473 
+        # work: r012 r019 r022 r021 r025 r471 r029 r032 r472 r013 r483 r018 
         urls = %w(
-                  r010 r457 r007 r005 r003 r004 r060 r483 r473 r018 r020
-                  r012 r019 r480 r022 r021 r023 r025 r034 r035 r471 r029
-                  r030 r032 r472 r476 r013 r027 r505 r028 r060 r054 r481 
-                  r041 r047 r464 r482 r045 r475
+                  r483 r018 r054 r481 r012 r019 r022 r021 r025 r471 r029 r032 
+                  r472 r013 r041 r047 r464 r482 r475 r010 r457 r007 r005 r003 
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
@@ -52,11 +53,12 @@ module CARL_SPACKLER
         # <div class="tourTournLogo">
         #   <img src="/.element/img/3.0/sect/tournaments/r457/tourn_logo.gif"/>
         # </div>
+        
         doc = Nokogiri::HTML(open(url))
         tourn = OpenStruct.new
-        tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv
-        tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv
-        tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv
+        tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv 
+        tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournNameDates') == nil 
+        tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournHeadLinks') == nil 
         #tourn.img = doc.css('div.tourTournLogo').first.inner_html
         tourn
     end
