@@ -9,12 +9,21 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'ostruct'
+require 'iconv'
+
+#monkey patch String to remove any non-ASCII characters from scrapeage
+class String
+  def to_ascii_iconv
+    converter = Iconv.new('ASCII//IGNORE//TRANSLIT', 'UTF-8')
+    converter.iconv(self).unpack('U*').select{ |cp| cp < 127 }.pack('U*')
+  end
+end
 
 module CARL_SPACKLER
-  VERSION = '0.3.0'
+  VERSION = '0.4.0'
 
   class PGA
-    
+        
     def get_urls(year)
       if year == 2008
         # html data urls for 2008 
@@ -45,9 +54,9 @@ module CARL_SPACKLER
         # </div>
         doc = Nokogiri::HTML(open(url))
         tourn = OpenStruct.new
-        tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip()
-        tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip()
-        tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip()
+        tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv
+        tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv
+        tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv
         #tourn.img = doc.css('div.tourTournLogo').first.inner_html
         tourn
     end
@@ -64,7 +73,7 @@ module CARL_SPACKLER
           table.css('tr').each do |row|
             row.css('td').each do |cel|
               innertext = cel.inner_text.strip()
-              cells << innertext
+              cells << innertext.to_ascii_iconv
             end
             player_data << cells
             cells = []
@@ -77,7 +86,7 @@ module CARL_SPACKLER
           if table.attributes['class'] == 'altleaderboard2'
             table.css('tr').each do |row|
               row.css('td').each do |cel|
-                innertext = cel.inner_text.strip()
+                innertext = cel.inner_text.strip().to_ascii_iconv
                 cells << innertext
               end
               player_data << cells
@@ -127,7 +136,6 @@ module CARL_SPACKLER
       # otherwise grab info, then output to screen
       to_screen_output
     end
-    
     
   end #end class PGA
   
