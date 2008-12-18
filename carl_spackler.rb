@@ -57,9 +57,17 @@ module CARL_SPACKLER
         doc = Nokogiri::HTML(open(url))
         tourn = OpenStruct.new
         tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv 
-        tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournNameDates') == nil 
-        tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournHeadLinks') == nil 
-        #tourn.img = doc.css('div.tourTournLogo').first.inner_html
+        if doc.css('div.tourTournNameDates').first == nil
+          #some leaderboards have different formats:
+          tourn.dates = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[0]
+          tourn.course = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[1]
+          #puts tourn.dates #puts tourn.course
+        else
+          tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournNameDates') == nil 
+          tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournHeadLinks') == nil
+          #tourn.img = doc.css('div.tourTournLogo').first.inner_html
+        end
+        
         tourn
     end
     
