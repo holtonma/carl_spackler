@@ -33,6 +33,7 @@ module CARL_SPACKLER
         urls = %w(
                   r483 r018 r054 r481 r012 r019 r022 r021 r025 r471 r029 r032 
                   r472 r013 r041 r047 r464 r482 r475 r010 r457 r007 r005 r003 
+                  r020 r480 r023 r034 r035 r030 r476 r027 r505 r028 r060 r045 r004 r060 r473 
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
