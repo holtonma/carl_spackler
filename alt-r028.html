@@ -1,0 +1,1913 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>PGATOUR.com - BMW Championship Leaderboard</title>
+		<link rel="stylesheet" type="text/css" href="/.element/css/4.0/global/global.css" />
+	<link rel="stylesheet" type="text/css" href="/.element/css/4.0/global/r/main_r.css" />		
+	<link rel="stylesheet" type="text/css" href="http://i.cdn.turner.com/pgatour/.element/ssi/css/3.0/sect/tournaments/tournament_r.css" />	
+			
+	<link rel="stylesheet" type="text/css" href="/.element/css/4.0/sect/leaderboard/leaderboard.css" />			
+	<link rel="stylesheet" type="text/css" href="/.element/css/4.0/sect/leaderboard/leaderboard_r.css" />	
+	<script src="/.element/ssi/js/3.0/global/pgatour.js" type="text/javascript"></script>  
+	<script src="/.element/ssi/js/3.0/sect/tournaments.js" type="text/javascript"></script>	
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<meta http-equiv="Content-Language" content="en-us" />
+		<meta name="keywords" content="PGA TOUR live leaderboard, Live Golf Scores, Golf Leaderboard, Live golf scores, Golf Scores, golf, live golf, leaderboard" />
+		<meta name="description" content="The exclusive home for live PGA TOUR scoring. Complete coverage of the The Barclays. Follow all of the action live." />
+	<!--INCLUDE BEGIN SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/header/current/header-1.html--><script language="javascript" type="text/javascript">
+			
+			var lbState = new Object();
+			lbState.state = "Official";
+			lbState.currRound = "4";
+			lbState.playoffState = "Official";
+			lbState.scoringFormat = "FSS";
+
+			var init=0;
+			var rounds="4"; //default rounds, mininum 4
+			var lb_tour="r";
+			var lb_id="r028";
+			var nice_lb_id="r028";
+			var lb_tourney="BMW Championship"; //not used yet
+			var lb_round="4"; //not used yet
+			var lb_year="2008";
+			var lb_event_id="1";
+			var current_round="4"; //pass current round
+			var mnyClass='mr1';
+			var show_multiple_course="0"; //multiple course flag - course abbr next to player name
+
+			
+			var lb_tournId="028";
+
+			
+				topten_total_msgs = 1;
+				topten_msgs = ["<a href=\"http://fantasy.pgatour.com\"><img src=\"/.element/img/3.0/sect/leaderboard/lb_fantasy_ad.jpg\"/></a>",];
+				
+				row_10_ad = '<div style="width:668px"><iframe ALLOWTRANSPARENCY="true" hspace="0" vspace="0" marginHeight="0" marginWidth="0" src="http://ads.pgatour.com/html.ng/site=pgatour&amp;pgatour_pos=668x40_mid&amp;pgatour_rollup=live_scoring&amp;pgatour_section=pgatour&amp;params.styles=fs&amp;tile=_tile_id_&amp;page.allowcompete=yes&amp;domId=746316" border="0" frameBorder="0" height="0" width="668" scrolling="no" id="746316" style="position: absolute; visibility: hidden;"></iframe></div>';
+				cut_row_ad = '<div style="width:668px"><iframe ALLOWTRANSPARENCY="true" hspace="0" vspace="0" marginHeight="0" marginWidth="0" src="http://ads.pgatour.com/html.ng/site=pgatour&amp;pgatour_pos=668x40_mid2&amp;pgatour_rollup=live_scoring&amp;pgatour_section=pgatour&amp;params.styles=fs&amp;tile=_tile_id_&amp;page.allowcompete=yes&amp;domId=899021" border="0" frameBorder="0" height="0" width="668" scrolling="no" id="899021" style="position: absolute; visibility: hidden;"></iframe></div>';
+
+			
+			var sort_pref = "r" + "4"; //column header preference for sorting.
+			var previous_sort_pref = "r" + "4";
+
+			var isLaserScoring = "1";
+			var isFedexCup = "Yes";
+
+			
+			var isFcExpRow = "y";
+			var isScExpRow = "y";
+			var isPbpExpRow = "y";
+			var isSExpRow = "y";
+			var isHExpRow = "y";
+			var nameColSpan = 7;
+
+			
+			var courseIdToNumber = [];
+			
+				courseIdToNumber["BC"] = "534";
+			</script><script src="/.element/ssi/js/3.0/cookies.js"></script><script src="/.element/ssi/js/3.0/leaderboard/pgaReq.js"></script><script src="/.element/ssi/js/3.0/leaderboard/abstractFunctions.js"></script><script src="/.element/ssi/js/3.0/leaderboard/tblRequestor.js"></script><script src="/.element/ssi/js/3.0/leaderboard/leaderboard.js"></script><!-- Build info: 2008-9-7 18:04:47,657 --><!--INCLUDE END SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/header/current/header-1.html-->
+</head>
+
+<body>
+<div id="tourContainer">
+<div id="tourContent">
+	<script language="Javascript">
+	var ts = 'Wednesday, 17-Dec-2008 20:23:15 EST';
+	ts = ts.replace(/^[^0-9]*/,'').replace(/\:[^:]*$/,'').replace(/[^0-9a-zA-Z]/g,'').toUpperCase();
+	var mn = ts.substr(2,3);
+	switch(mn) {
+		case 'JAN': mn='01'; break;
+		case 'FEB': mn='02'; break;
+		case 'MAR': mn='03'; break;
+		case 'APR': mn='04'; break;
+		case 'MAY': mn='05'; break;
+		case 'JUN': mn='06'; break;
+		case 'JUL': mn='07'; break;
+		case 'AUG': mn='08'; break;
+		case 'SEP': mn='09'; break;
+		case 'OCT': mn='10'; break;
+		case 'NOV': mn='11'; break;
+		case 'DEV': mn='12'; break;
+	}
+	if (ts.substr(5,2)=='20') {
+		global.now = ts.substr(5,4)+mn+ts.substr(0,2)+ts.substr(9,4);
+	} else {
+		global.now = '20'+ts.substr(5,2)+mn+ts.substr(0,2)+ts.substr(7,4);
+	}
+	global.today = global.now.toString().substr(0,8)+'0000'-0;
+
+</script>
+<!-- HEADER --><div id="tourHeaderSub">
+		 <div id="tour728Ad"><div class="fullad"><!-- ADSPACE: live_scoring/pgatour/top.728x90 --><div align="center" style="padding: 0; margin: 0; border: 0;"><script type="text/javascript">
+
+
+
+cnnad_createAd("561171","http://ads.pgatour.com/html.ng/site=pgatour&pgatour_pos=728x90_top&pgatour_rollup=live_scoring&pgatour_section=pgatour&params.styles=fs","90","728");
+if (cnnad_adIframes)
+{
+    cnnad_adIframes[cnnad_adIframes.length] = 561171;
+}
+
+
+
+</script></div></div><div id="tourFoundationAd"><!-- ADSPACE: foundation/spon_120x60 --><div align="center" style="padding: 0; margin: 0; border: 0;"><script type="text/javascript">
+
+
+
+cnnad_createAd("651033","http://ads.pgatour.com/html.ng/site=pgatour&pgatour_pos=120x60_spon&pgatour_rollup=foundation&params.styles=fs","60","120");
+if (cnnad_adIframes)
+{
+    cnnad_adIframes[cnnad_adIframes.length] = 651033;
+}
+
+
+
+</script></div></div></div>
+
+		<div id="tourHeadContainer">
+		<div id="tourLogo"><span class="AlphaTrans"><a href="/"><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/pgatour_logo.png" width="82" height="104" /></a></span></div>
+		<div id="tourLoginSearch">
+				<div id="tourLogin">
+			<script type="text/javascript">
+				// to chance link location edit these variables
+				var  xurl  = '?xurl=' + escape(location.href);
+				var signinLink = '<a id="signinLink" href="/member_services/login.html">';
+				var signoutLink = '<a id="signoutLink" href="http://audience.pgatour.com/services/pgatour/logout.do?xurl=' + escape(location.href) + '">';
+				var registerLink = '<a id="registerLink" href="/member_services/registration.html' + xurl + '">';
+				var updateLink= '<a id="updateLink" href="/member_services/update.html">';
+				// normal script vars
+				var htmlLogin = '';
+				var authid = Cookie.get('authid'); // authid is member services cookie
+				if (authid != null && authid != "") {
+					// user is signed on
+					var firstName = Cookie.get('firstName');
+					if (firstName != null && firstName != '') {
+						htmlLogin += signoutLink + firstName +' - Sign Out</a>|';
+					} else {
+						htmlLogin += signoutLink + 'Sign Out</a>|';
+					}
+					htmlLogin += updateLink + 'Update Account</a>';
+				} else {
+					// user is not signed in
+					htmlLogin += signinLink + 'Sign On</a>|';
+					htmlLogin += registerLink + 'Register</a>';
+				}
+				document.write(htmlLogin);
+			</script>
+		</div><!-- /tourLogin -->
+				<!-- SEARCH -->
+				<form style="tourSearhFrom" action="http://search.pgatour.com/pages/search.jsp" method="get" onsubmit="return validateSearchForm(this);">
+	<input name="query" value="" type="text" class="tourSearchQuery" />
+	<input type="submit" class="tourSearchButton" value="SEARCH" />
+</form><!-- /SEARCH -->		
+		</div>
+<!-- THESE STYLES ARE A TEMPORARY MEASURE UNTIL THE SHOTTRACKER OVERLAY IS COMPLETE - ah -->
+	<link rel="stylesheet" type="text/css" href="/.element/css/3.0/global/r/nav_r.css" />
+	
+<div id="tourTopNavContainer">
+<!-- NAVIGATION --><div id="tourTopNav">
+<div id="tourMainNav">
+	<div class="tourSectLinks">
+	<a id="tourSectLink1" class="tourSectLinksItem Navactive" href="/" alt="PGA Tour"><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/r/nav_tour_on.gif" /></a>
+	<a id="tourSectLink2" class="tourSectLinksItem" href="/s/" alt="Champions Tour"><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/r/nav_champ_off.gif" /></a>
+	<a id="tourSectLink3" class="tourSectLinksItem" href="/h/" alt="Nationwide Tour"><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/r/nav_nation_off.gif" /></a>
+	</div>
+	<div class="tourTopNavOtherLinks">
+		<a class="tourTopNavOtherLinksItem" href="/tourlife/instruction/" alt="Instruction">Instruction</a>
+		<a class="tourTopNavOtherLinksItem" href="/tourlife/travel/" alt="Travel">Travel</a>
+		<a class="tourTopNavOtherLinksItem" href="/multimedia/wireless/" alt="Mobile">Mobile</a>
+		<a class="tourTopNavOtherLinksItem" href="http://shop.PGATOUR.com/" alt="Shop">Shop</a>
+		<a class="tourTopNavOtherLinksItem" href="/company/" alt="Press Room">Press Room</a>
+		<a class="tourTopNavOtherLinksItem tourTopNavLast" href="http://www.pga.com" alt="PGA Tour">PGA.com</a>
+	</div>
+</div>
+<div class="tourTopNavBotCont">
+<div class="tourTopNavBottom">
+	<div id="tourSectBotLinks" class="tourSectBotLinks">
+		<div id="tourSectSubLink1" class="tourSectSubLinks1 show">
+			<a id="tourSectBotLinksItem1" class="tourSectBotLinksItem" href="/r/leaderboard/" alt="PGA Tour Live Scoring">LEADERBOARD</a><!-- #include virtual="/.element/ssi/global/3.0/header/nav_r_stoverlay.html"-->
+			<a id="tourSectBotLinksItem2" class="tourSectBotLinksItem" href="/shottracker/home.html" alt="PGA Tour Tournaments">SHOT TRACKER</a>
+			<a id="tourSectBotLinksItem3" class="tourSectBotLinksItem" href="/r/schedule/" alt="PGA Tour Tournaments">TOURNAMENTS</a>
+			<a id="tourSectBotLinksItem4" class="tourSectBotLinksItem" href="/r/players/" alt="PGA Tour Players">PLAYERS</a>
+			<a id="tourSectBotLinksItem5" class="tourSectBotLinksItem" href="/video/" alt="Video">VIDEO</a>	
+			<a id="tourSectBotLinksItem6" class="tourSectBotLinksItem" href="/story/archive/r/" alt="PGA Tour News">NEWS</a>
+			<a id="tourSectBotLinksItem7" class="tourSectBotLinksItem" href="/r/stats/" alt="PGA TOUR Stats">STATS</a>		
+			<a id="tourSectBotLinksItem8" class="tourSectBotLinksItem" href="/fantasy/" alt="Fantasy">FANTASY</a>
+			<a id="tourSectBotLinksItem9" class="tourSectBotLinksItem" href="/fedexcup/" alt="FEDEXCUP">FEDEXCUP <img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/nav_fedexcup.gif" class="tourSpecialNavImg1" /></a>
+			<a id="tourSectBotLinksItem10" class="tourSectBotLinksItem" href="/tournaments/r011/" alt="THE PLAYERS Championship"><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/players_navimg2.gif" class="tourSpecialNavImg" /></a>
+	</div>
+	
+	<div id="tourSectSubLink2" class="tourSectSubLinks1 hide">
+		<div class="tourSectSubChamp">
+			<a id="tourSectBotLinksItem1" class="tourSectBotLinksItem" href="/s/leaderboard/" alt="Champions Tour Live Scoring">LIVE SCORING</a>
+			<a id="tourSectBotLinksItem2" class="tourSectBotLinksItem" href="/s/schedule/" alt="Champions Tour Tournaments">SCHEDULE</a>
+			<a id="tourSectBotLinksItem3" class="tourSectBotLinksItem" href="/s/players/" alt="Champions Tour Players">PLAYERS</a>
+			<a id="tourSectBotLinksItem5" class="tourSectBotLinksItem" href="/video/?/video/champions-tour" alt="Video">VIDEO</a>	
+			<a id="tourSectBotLinksItem4" class="tourSectBotLinksItem" href="/news/" alt="Champions Tour News">NEWS</a>
+			<a id="tourSectBotLinksItem5" class="tourSectBotLinksItem" href="/s/stats/" alt="Champions Tour Stats">STATISTICS</a>
+			<a id="tourSectBotLinksItem7" class="tourSectBotLinksItem" href="/charlesschwabcup/" alt="Charles Schwab Cup">CHARLES SCHWAB CUP <img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/sm_schwab.gif" class="tourSpecialNavImg" /></a>
+		</div>
+	</div>
+		
+	<div id="tourSectSubLink3" class="tourSectSubLinks1 hide">
+		<div class="tourSectSubNation">
+			<a id="tourSectBotLinksItem1" class="tourSectBotLinksItem" href="/h/leaderboard/" alt="Nationwide Tour Live Scoring">LIVE SCORING</a>
+			<a id="tourSectBotLinksItem2" class="tourSectBotLinksItem" href="/h/schedule/" alt="Nationwide Tour Tournaments">SCHEDULE</a>
+			<a id="tourSectBotLinksItem3" class="tourSectBotLinksItem" href="/h/players/" alt="Nationwide Tour Players">PLAYERS</a>
+			<a id="tourSectBotLinksItem4" class="tourSectBotLinksItem" href="/video/?/video/nationwide-tour" alt="Video">VIDEO</a>	
+			<a id="tourSectBotLinksItem5" class="tourSectBotLinksItem" href="/news/" alt="Nationwide Tour News">NEWS</a>
+			<a id="tourSectBotLinksItem6" class="tourSectBotLinksItem" href="/h/stats/" alt="Nationwide Tour Stats">STATISTICS</a>
+			<a id="tourSectBotLinksItem7" class="tourSectBotLinksItem" href="/h/stats/" alt="THE 25">THE 25</a>
+		</div>
+	</div>
+	<div id="tourTopNavFeedback"><a href="/member_services/feedback.html">&nbsp; &nbsp;FEEDBACK</a></div>
+</div>
+</div>
+</div>
+<div class="tourClear"></div>
+</div><!-- /NAVIGATION -->		
+</div>
+</div>
+<div class="tourClear"></div>	
+	</div><!-- /HEADER -->	
+	<div class="tourClear"></div>
+	
+<div id="tourFullContent">
+	<!-- UNPAID HEADER -->
+<!-- #include virtual="/.element/ssi/sect/3.0/tournaments/r028/.header/unpaid_header.html"-->
+<!-- PAID HEADER -->
+	<div id="tourTournSubHeadPaid">
+		<div id="tourTournSubHeader">
+			<img src="http://i.cdn.turner.com/pgatour/.element/img/4.0/global/playoffs_hdr1_both.jpg" />
+		</div>
+			 <img src="http://i.cdn.turner.com/pgatour/.element/img/4.0/sect/tournaments/r028/tourn_bkgrnd.jpg" class="tourTournBkgImg" />
+			<div id="tourTournTitleBar"></div>
+				<div class="tourTournSubInfo">Thursday Sept. 4 &ndash; Sunday Sept 7, 2008 &middot; Bellerive Country Club &middot; St. Louis, Missouri</div>
+		<div id="tourTournSubFooterPaid">
+			<ul class="tourTournFootInfo">
+				<li>FedExCup Points: 50,000</li>	
+				<li>Purse: $7 Million</li>
+				<li>Winning Share: $1,260,000</li>	
+				<li>Yards: 7,304</li>
+				<li class="external"><a href="http://bmw-golfsport.com/gs/bcs_usa.html">www.bmw-golfsport.com</a></li>					
+			</ul>
+		</div>
+	</div>
+	<div id="tourLBPlayerSpot">
+	<!--INCLUDE BEGIN SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/body/current/leader.html-->
+   <div class="tourStandingsHeader">2008 LEADERBOARD
+      			
+      			
+      <div class="tour88x31Ad"><a href="http://www.cdw.com/?cm_mmc=PGA%20-_-PGA%20Tour.com%20(contract)-_-Custom%20Logo-_-Logo"><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/promotions/CDW_88x31.gif"></a></div>
+   </div>
+   <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+         <tr class="tourLBPlayerCont">
+            <td class="tourPlayerHead" background="http://i.cdn.turner.com/pgatour/.element/img/3.0/sect/players/02/77/70/leaderboard.lb.jpg">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                     <td>
+                        <div class="tourPlayerOverlay"></div>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+            <td class="tourPlayerContent" colspan="2">
+               <table cellpadding="0" cellspacing="0" border="0" class="tourLBData">
+                  <tbody>
+                     <tr class="tourLBRound">
+                        <td colspan="3">Round 4</td>
+                     </tr>
+                     <tr>
+                        <td class="tourLBPlayerName"><a href="/players/02/77/70/scorecards/2008/r028.html">Camilo Villegas</a></td>
+                        <td colspan="2" class="tourLBTimePar">Today -2 To Par -15</td>
+                     </tr>
+                     <tr class="tourLBDataHeader">
+                        <td>Stats</td>
+                        <td>Avg</td>
+                        <td>Rank</td>
+                     </tr>
+                     <tr class="tourLBDataContent">
+                        <td>Driving Distance</td>
+                        <td>296.9</td>
+                        <td>18</td>
+                     </tr>
+                     <tr class="tourLBDataContentAlt">
+                        <td>Greens in Reg</td>
+                        <td>70.8</td>
+                        <td>T25</td>
+                     </tr>
+                     <tr class="tourLBDataContent">
+                        <td>Putts Per GIR</td>
+                        <td>1.608</td>
+                        <td>1</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+         </tr>
+         <tr class="tourTableFooter">
+            <td colspan="3"><span class="tourLBUpdated">
+                  							Last Updated: September 07, 2008 - 6:04 PM</span><span><a href="javascript:customizeOnClick()">Customize the Leaderboard</a></span></td>
+         </tr>
+      </tbody>
+   </table>
+   <!-- Build info: 2008-9-7 18:04:47,576 -->
+   <!--INCLUDE END SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/body/current/leader.html-->
+</div>
+	<div id="tourLBPromoPod">
+<!-- ADSPACE: live_scoring/pgatour/rgt_226x100 --><div id="ad-243049" align="center" style="padding: 0; margin: 0; border: 0;"><script type="text/javascript"> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+cnnad_createAd("243049","http://ads.pgatour.com/html.ng/site=pgatour&pgatour_pos=226x100_rgt&pgatour_rollup=live_scoring&pgatour_section=pgatour&params.styles=fs","100","226");
+
+
+
+
+
+
+
+
+
+
+
+
+</script></div>
+<!-- #include virtual="/.element/ssi/auto/3.0/perl/global/swapper/leaderboard_promo_global.html"--></div>	
+	<div id="tourLBWeatherPod">
+	<!--INCLUDE BEGIN SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/body/current/weather.html-->
+   <div class="tourLBWeatherContent"><span>Conditions: <span class="b">Clear</span></span>&middot;<span>Temperature: <span class="b">10F</span></span></div>
+   <div class="tourWeatherPres">
+      <p><a href="http://pgatour.dtn.com/" style="color:#FFFFFF">Presented by DTN Meteorlogix</a></p>
+   </div>
+   <!--INCLUDE END SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/body/current/weather.html-->
+</div>
+<div class="tourClear"></div>
+	<!--INCLUDE BEGIN SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/body/current/alt-1.html-->
+   <div class="spacer5">&nbsp;</div>
+   <div class="leaderboard_head">
+      <table border="0" cellspacing="1" cellpadding="2" width="100%">
+         <tr>
+            <td valign="bottom" align="right" id="topData"><b>Last Updated: September 07, 2008 - 6:04 PM</b></td>
+         </tr>
+      </table>
+   </div>
+   <div class="altleaderboard">
+      <div class="SLTables1">
+         <table class="altleaderboard" width="100%" cellpadding="2" cellspacing="1" border="0">
+            <tr align="middle" class="header">
+               <td>FC</td>
+               <td>Pos.</td>
+               <td>Start</td>
+               <td>Player</td>
+               <td>Today</td>
+               <td>Thru</td>
+               <td>To Par</td>
+               <td>R1</td>
+               <td>R2</td>
+               <td>R3</td>
+               <td>R4</td>
+               <td>Total</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">25</td>
+               <td align="center">1</td>
+               <td align="center">1</td>
+               <td align="left"><a href="/players/02/77/70/scorecards/2008/r028.html">Camilo Villegas</a> (BC)
+               </td>
+               <td align="center">-2</td>
+               <td align="center">F</td>
+               <td align="center">-15</td>
+               <td align="center">65</td>
+               <td align="center">66</td>
+               <td align="center">66</td>
+               <td align="center">68</td>
+               <td align="center">265</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">67</td>
+               <td align="center">2</td>
+               <td align="center">T6</td>
+               <td align="left"><a href="/players/00/65/75/scorecards/2008/r028.html">Dudley Hart</a> (BC)
+               </td>
+               <td align="center">-5</td>
+               <td align="center">F</td>
+               <td align="center">-13</td>
+               <td align="center">67</td>
+               <td align="center">69</td>
+               <td align="center">66</td>
+               <td align="center">65</td>
+               <td align="center">267</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">5</td>
+               <td align="center">T3</td>
+               <td align="center">2</td>
+               <td align="left"><a href="/players/01/08/09/scorecards/2008/r028.html">Jim Furyk</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-12</td>
+               <td align="center">70</td>
+               <td align="center">62</td>
+               <td align="center">66</td>
+               <td align="center">70</td>
+               <td align="center">268</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">7</td>
+               <td align="center">T3</td>
+               <td align="center">T3</td>
+               <td align="left"><a href="/players/02/97/18/scorecards/2008/r028.html">Anthony Kim</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F</td>
+               <td align="center">-12</td>
+               <td align="center">68</td>
+               <td align="center">67</td>
+               <td align="center">66</td>
+               <td align="center">67</td>
+               <td align="center">268</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">50</td>
+               <td align="center">T5</td>
+               <td align="center">10</td>
+               <td align="left"><a href="/players/00/60/04/scorecards/2008/r028.html">Stephen Ames</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F</td>
+               <td align="center">-11</td>
+               <td align="center">68</td>
+               <td align="center">69</td>
+               <td align="center">66</td>
+               <td align="center">66</td>
+               <td align="center">269</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">35</td>
+               <td align="center">T5</td>
+               <td align="center">T6</td>
+               <td align="left"><a href="/players/02/37/88/scorecards/2008/r028.html">D.J. Trahan</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F</td>
+               <td align="center">-11</td>
+               <td align="center">71</td>
+               <td align="center">63</td>
+               <td align="center">68</td>
+               <td align="center">67</td>
+               <td align="center">269</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">12</td>
+               <td align="center">T5</td>
+               <td align="center">T6</td>
+               <td align="left"><a href="/players/02/43/57/scorecards/2008/r028.html">K.J. Choi</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F</td>
+               <td align="center">-11</td>
+               <td align="center">70</td>
+               <td align="center">68</td>
+               <td align="center">64</td>
+               <td align="center">67</td>
+               <td align="center">269</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">20</td>
+               <td align="center">T8</td>
+               <td align="center">T11</td>
+               <td align="left"><a href="/players/02/47/81/scorecards/2008/r028.html">Hunter Mahan</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F</td>
+               <td align="center">-10</td>
+               <td align="center">69</td>
+               <td align="center">67</td>
+               <td align="center">68</td>
+               <td align="center">66</td>
+               <td align="center">270</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">28</td>
+               <td align="center">T8</td>
+               <td align="center">T3</td>
+               <td align="left"><a href="/players/02/31/35/scorecards/2008/r028.html">Tim Clark</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F</td>
+               <td align="center">-10</td>
+               <td align="center">67</td>
+               <td align="center">68</td>
+               <td align="center">66</td>
+               <td align="center">69</td>
+               <td align="center">270</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">65</td>
+               <td align="center">T10</td>
+               <td align="center">T21</td>
+               <td align="left"><a href="/players/02/17/31/scorecards/2008/r028.html">Fredrik Jacobson</a> (BC)
+               </td>
+               <td align="center">-5</td>
+               <td align="center">F</td>
+               <td align="center">-9</td>
+               <td align="center">67</td>
+               <td align="center">67</td>
+               <td align="center">72</td>
+               <td align="center">65</td>
+               <td align="center">271</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">13</td>
+               <td align="center">T10</td>
+               <td align="center">T17</td>
+               <td align="left"><a href="/players/00/65/27/scorecards/2008/r028.html">Steve Stricker</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F</td>
+               <td align="center">-9</td>
+               <td align="center">66</td>
+               <td align="center">71</td>
+               <td align="center">68</td>
+               <td align="center">66</td>
+               <td align="center">271</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">64</td>
+               <td align="center">T10</td>
+               <td align="center">T6</td>
+               <td align="left"><a href="/players/02/23/71/scorecards/2008/r028.html">Aaron Baddeley</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F</td>
+               <td align="center">-9</td>
+               <td align="center">71</td>
+               <td align="center">64</td>
+               <td align="center">67</td>
+               <td align="center">69</td>
+               <td align="center">271</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">10</td>
+               <td align="center">T13</td>
+               <td align="center">T33</td>
+               <td align="left"><a href="/players/02/26/21/scorecards/2008/r028.html">Ben Curtis</a> (BC)
+               </td>
+               <td align="center">-5</td>
+               <td align="center">F</td>
+               <td align="center">-7</td>
+               <td align="center">70</td>
+               <td align="center">70</td>
+               <td align="center">68</td>
+               <td align="center">65</td>
+               <td align="center">273</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">21</td>
+               <td align="center">T13</td>
+               <td align="center">T21</td>
+               <td align="left"><a href="/players/02/23/78/scorecards/2008/r028.html">Trevor Immelman</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F</td>
+               <td align="center">-7</td>
+               <td align="center">69</td>
+               <td align="center">67</td>
+               <td align="center">70</td>
+               <td align="center">67</td>
+               <td align="center">273</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">62</td>
+               <td align="center">T13</td>
+               <td align="center">T17</td>
+               <td align="left"><a href="/players/02/59/00/scorecards/2008/r028.html">Lucas Glover</a> (BC)
+               </td>
+               <td align="center">-2</td>
+               <td align="center">F</td>
+               <td align="center">-7</td>
+               <td align="center">68</td>
+               <td align="center">68</td>
+               <td align="center">69</td>
+               <td align="center">68</td>
+               <td align="center">273</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">58</td>
+               <td align="center">T13</td>
+               <td align="center">T3</td>
+               <td align="left"><a href="/players/01/98/46/scorecards/2008/r028.html">Brian Gay</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F</td>
+               <td align="center">-7</td>
+               <td align="center">67</td>
+               <td align="center">67</td>
+               <td align="center">67</td>
+               <td align="center">72</td>
+               <td align="center">273</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">19</td>
+               <td align="center">T17</td>
+               <td align="center">T21</td>
+               <td align="left"><a href="/players/00/65/22/scorecards/2008/r028.html">Ernie Els</a> (BC)
+               </td>
+               <td align="center">-2</td>
+               <td align="center">F</td>
+               <td align="center">-6</td>
+               <td align="center">68</td>
+               <td align="center">72</td>
+               <td align="center">66</td>
+               <td align="center">68</td>
+               <td align="center">274</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">8</td>
+               <td align="center">T17</td>
+               <td align="center">T11</td>
+               <td align="left"><a href="/players/00/18/10/scorecards/2008/r028.html">Phil Mickelson</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-6</td>
+               <td align="center">68</td>
+               <td align="center">65</td>
+               <td align="center">71</td>
+               <td align="center">70</td>
+               <td align="center">274</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">4</td>
+               <td align="center">T17</td>
+               <td align="center">T11</td>
+               <td align="left"><a href="/players/01/08/60/scorecards/2008/r028.html">Justin Leonard</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-6</td>
+               <td align="center">69</td>
+               <td align="center">67</td>
+               <td align="center">68</td>
+               <td align="center">70</td>
+               <td align="center">274</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">2</td>
+               <td align="center">T20</td>
+               <td align="center">T17</td>
+               <td align="left"><a href="/players/02/12/09/scorecards/2008/r028.html">Sergio Garcia</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-5</td>
+               <td align="center">68</td>
+               <td align="center">68</td>
+               <td align="center">69</td>
+               <td align="center">70</td>
+               <td align="center">275</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">69</td>
+               <td align="center">T20</td>
+               <td align="center">T11</td>
+               <td align="left"><a href="/players/00/10/35/scorecards/2008/r028.html">Tommy Armour III</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F</td>
+               <td align="center">-5</td>
+               <td align="center">71</td>
+               <td align="center">64</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">275</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">37</td>
+               <td align="center">T22</td>
+               <td align="center">T33</td>
+               <td align="left"><a href="/players/02/81/58/scorecards/2008/r028.html">Steve Marino</a> (BC)
+               </td>
+               <td align="center">-2</td>
+               <td align="center">F</td>
+               <td align="center">-4</td>
+               <td align="center">69</td>
+               <td align="center">69</td>
+               <td align="center">70</td>
+               <td align="center">68</td>
+               <td align="center">276</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">63</td>
+               <td align="center">T22</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/02/30/48/scorecards/2008/r028.html">Eric Axley</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F*</td>
+               <td align="center">-4</td>
+               <td align="center">70</td>
+               <td align="center">69</td>
+               <td align="center">70</td>
+               <td align="center">67</td>
+               <td align="center">276</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">26</td>
+               <td align="center">T22</td>
+               <td align="center">T27</td>
+               <td align="left"><a href="/players/00/17/66/scorecards/2008/r028.html">Billy Mayfair</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F</td>
+               <td align="center">-4</td>
+               <td align="center">73</td>
+               <td align="center">67</td>
+               <td align="center">67</td>
+               <td align="center">69</td>
+               <td align="center">276</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">33</td>
+               <td align="center">T22</td>
+               <td align="center">T27</td>
+               <td align="left"><a href="/players/02/72/14/scorecards/2008/r028.html">Kevin Streelman</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F</td>
+               <td align="center">-4</td>
+               <td align="center">70</td>
+               <td align="center">68</td>
+               <td align="center">69</td>
+               <td align="center">69</td>
+               <td align="center">276</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">41</td>
+               <td align="center">T22</td>
+               <td align="center">T21</td>
+               <td align="left"><a href="/players/01/26/02/scorecards/2008/r028.html">Dean Wilson</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-4</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">66</td>
+               <td align="center">70</td>
+               <td align="center">276</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">70</td>
+               <td align="center">T22</td>
+               <td align="center">T11</td>
+               <td align="left"><a href="/players/02/08/48/scorecards/2008/r028.html">Angel Cabrera</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F</td>
+               <td align="center">-4</td>
+               <td align="center">69</td>
+               <td align="center">69</td>
+               <td align="center">66</td>
+               <td align="center">72</td>
+               <td align="center">276</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">30</td>
+               <td align="center">T28</td>
+               <td align="center">T27</td>
+               <td align="left"><a href="/players/02/20/46/scorecards/2008/r028.html">Geoff Ogilvy</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-3</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">67</td>
+               <td align="center">70</td>
+               <td align="center">277</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">31</td>
+               <td align="center">T28</td>
+               <td align="center">T27</td>
+               <td align="left"><a href="/players/02/62/89/scorecards/2008/r028.html">Boo Weekley</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F</td>
+               <td align="center">-3</td>
+               <td align="center">71</td>
+               <td align="center">65</td>
+               <td align="center">71</td>
+               <td align="center">70</td>
+               <td align="center">277</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">46</td>
+               <td align="center">T28</td>
+               <td align="center">T46</td>
+               <td align="left"><a href="/players/00/22/39/scorecards/2008/r028.html">Scott Verplank</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F*</td>
+               <td align="center">-3</td>
+               <td align="center">73</td>
+               <td align="center">69</td>
+               <td align="center">68</td>
+               <td align="center">67</td>
+               <td align="center">277</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">53</td>
+               <td align="center">T28</td>
+               <td align="center">T21</td>
+               <td align="left"><a href="/players/00/11/42/scorecards/2008/r028.html">Bart Bryant</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F</td>
+               <td align="center">-3</td>
+               <td align="center">69</td>
+               <td align="center">68</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">277</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">27</td>
+               <td align="center">T28</td>
+               <td align="center">T51</td>
+               <td align="left"><a href="/players/02/58/04/scorecards/2008/r028.html">Bubba Watson</a> (BC)
+               </td>
+               <td align="center">-5</td>
+               <td align="center">F*</td>
+               <td align="center">-3</td>
+               <td align="center">73</td>
+               <td align="center">73</td>
+               <td align="center">66</td>
+               <td align="center">65</td>
+               <td align="center">277</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">36</td>
+               <td align="center">T33</td>
+               <td align="center">T33</td>
+               <td align="left"><a href="/players/02/71/41/scorecards/2008/r028.html">J.B. Holmes</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F*</td>
+               <td align="center">-2</td>
+               <td align="center">68</td>
+               <td align="center">73</td>
+               <td align="center">67</td>
+               <td align="center">70</td>
+               <td align="center">278</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">18</td>
+               <td align="center">T33</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/02/01/04/scorecards/2008/r028.html">Ken Duke</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F*</td>
+               <td align="center">-2</td>
+               <td align="center">70</td>
+               <td align="center">72</td>
+               <td align="center">67</td>
+               <td align="center">69</td>
+               <td align="center">278</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">57</td>
+               <td align="center">T33</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/02/35/41/scorecards/2008/r028.html">Ben Crane</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F*</td>
+               <td align="center">-2</td>
+               <td align="center">70</td>
+               <td align="center">70</td>
+               <td align="center">69</td>
+               <td align="center">69</td>
+               <td align="center">278</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">15</td>
+               <td align="center">T33</td>
+               <td align="center">T51</td>
+               <td align="left"><a href="/players/02/53/45/scorecards/2008/r028.html">Carl Pettersson</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F*</td>
+               <td align="center">-2</td>
+               <td align="center">72</td>
+               <td align="center">70</td>
+               <td align="center">70</td>
+               <td align="center">66</td>
+               <td align="center">278</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">54</td>
+               <td align="center">T33</td>
+               <td align="center">T51</td>
+               <td align="left"><a href="/players/02/64/76/scorecards/2008/r028.html">Chez Reavie</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F*</td>
+               <td align="center">-2</td>
+               <td align="center">67</td>
+               <td align="center">70</td>
+               <td align="center">75</td>
+               <td align="center">66</td>
+               <td align="center">278</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">22</td>
+               <td align="center">T38</td>
+               <td align="center">T33</td>
+               <td align="left"><a href="/players/02/04/98/scorecards/2008/r028.html">Briny Baird</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F*</td>
+               <td align="center">-1</td>
+               <td align="center">73</td>
+               <td align="center">66</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">279</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">47</td>
+               <td align="center">T38</td>
+               <td align="center">T33</td>
+               <td align="left"><a href="/players/02/05/74/scorecards/2008/r028.html">Mathew Goggin</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F</td>
+               <td align="center">-1</td>
+               <td align="center">70</td>
+               <td align="center">71</td>
+               <td align="center">67</td>
+               <td align="center">71</td>
+               <td align="center">279</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">16</td>
+               <td align="center">T38</td>
+               <td align="center">T27</td>
+               <td align="left"><a href="/players/01/08/85/scorecards/2008/r028.html">Robert Allenby</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F</td>
+               <td align="center">-1</td>
+               <td align="center">71</td>
+               <td align="center">68</td>
+               <td align="center">68</td>
+               <td align="center">72</td>
+               <td align="center">279</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">17</td>
+               <td align="center">T38</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/02/00/98/scorecards/2008/r028.html">Stuart Appleby</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F*</td>
+               <td align="center">-1</td>
+               <td align="center">66</td>
+               <td align="center">73</td>
+               <td align="center">70</td>
+               <td align="center">70</td>
+               <td align="center">279</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">48</td>
+               <td align="center">T38</td>
+               <td align="center">T11</td>
+               <td align="left"><a href="/players/01/27/82/scorecards/2008/r028.html">Tim Herron</a> (BC)
+               </td>
+               <td align="center">5</td>
+               <td align="center">F</td>
+               <td align="center">-1</td>
+               <td align="center">66</td>
+               <td align="center">71</td>
+               <td align="center">67</td>
+               <td align="center">75</td>
+               <td align="center">279</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">51</td>
+               <td align="center">T38</td>
+               <td align="center">T60</td>
+               <td align="left"><a href="/players/02/17/53/scorecards/2008/r028.html">Brian Davis</a> (BC)
+               </td>
+               <td align="center">-5</td>
+               <td align="center">F*</td>
+               <td align="center">-1</td>
+               <td align="center">75</td>
+               <td align="center">67</td>
+               <td align="center">72</td>
+               <td align="center">65</td>
+               <td align="center">279</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">24</td>
+               <td align="center">T44</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/02/55/62/scorecards/2008/r028.html">Andres Romero</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F*</td>
+               <td align="center">E</td>
+               <td align="center">66</td>
+               <td align="center">70</td>
+               <td align="center">73</td>
+               <td align="center">71</td>
+               <td align="center">280</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">9</td>
+               <td align="center">T44</td>
+               <td align="center">T21</td>
+               <td align="left"><a href="/players/00/19/45/scorecards/2008/r028.html">Kenny Perry</a> (BC)
+               </td>
+               <td align="center">4</td>
+               <td align="center">F</td>
+               <td align="center">E</td>
+               <td align="center">66</td>
+               <td align="center">72</td>
+               <td align="center">68</td>
+               <td align="center">74</td>
+               <td align="center">280</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">1</td>
+               <td align="center">T44</td>
+               <td align="center">T48</td>
+               <td align="left"><a href="/players/00/65/67/scorecards/2008/r028.html">Vijay Singh</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F*</td>
+               <td align="center">E</td>
+               <td align="center">70</td>
+               <td align="center">70</td>
+               <td align="center">71</td>
+               <td align="center">69</td>
+               <td align="center">280</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">68</td>
+               <td align="center">T44</td>
+               <td align="center">T17</td>
+               <td align="left"><a href="/players/02/36/21/scorecards/2008/r028.html">Rory Sabbatini</a> (BC)
+               </td>
+               <td align="center">5</td>
+               <td align="center">F</td>
+               <td align="center">E</td>
+               <td align="center">72</td>
+               <td align="center">66</td>
+               <td align="center">67</td>
+               <td align="center">75</td>
+               <td align="center">280</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">40</td>
+               <td align="center">T44</td>
+               <td align="center">T56</td>
+               <td align="left"><a href="/players/02/87/80/scorecards/2008/r028.html">Nicholas Thompson</a> (BC)
+               </td>
+               <td align="center">-3</td>
+               <td align="center">F*</td>
+               <td align="center">E</td>
+               <td align="center">70</td>
+               <td align="center">73</td>
+               <td align="center">70</td>
+               <td align="center">67</td>
+               <td align="center">280</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">56</td>
+               <td align="center">T44</td>
+               <td align="center">T60</td>
+               <td align="left"><a href="/players/02/22/93/scorecards/2008/r028.html">Heath Slocum</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F*</td>
+               <td align="center">E</td>
+               <td align="center">71</td>
+               <td align="center">73</td>
+               <td align="center">70</td>
+               <td align="center">66</td>
+               <td align="center">280</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">43</td>
+               <td align="center">T50</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/02/45/02/scorecards/2008/r028.html">Adam Scott</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F*</td>
+               <td align="center">1</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">69</td>
+               <td align="center">72</td>
+               <td align="center">281</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">34</td>
+               <td align="center">T50</td>
+               <td align="center">T65</td>
+               <td align="left"><a href="/players/02/06/45/scorecards/2008/r028.html">John Senden</a> (BC)
+               </td>
+               <td align="center">-4</td>
+               <td align="center">F*</td>
+               <td align="center">1</td>
+               <td align="center">69</td>
+               <td align="center">73</td>
+               <td align="center">73</td>
+               <td align="center">66</td>
+               <td align="center">281</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">55</td>
+               <td align="center">T52</td>
+               <td align="center">T33</td>
+               <td align="left"><a href="/players/02/69/51/scorecards/2008/r028.html">Johnson Wagner</a> (BC)
+               </td>
+               <td align="center">4</td>
+               <td align="center">F</td>
+               <td align="center">2</td>
+               <td align="center">72</td>
+               <td align="center">69</td>
+               <td align="center">67</td>
+               <td align="center">74</td>
+               <td align="center">282</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">60</td>
+               <td align="center">T52</td>
+               <td align="center">T39</td>
+               <td align="left"><a href="/players/01/04/25/scorecards/2008/r028.html">Jay Williamson</a> (BC)
+               </td>
+               <td align="center">3</td>
+               <td align="center">F*</td>
+               <td align="center">2</td>
+               <td align="center">68</td>
+               <td align="center">69</td>
+               <td align="center">72</td>
+               <td align="center">73</td>
+               <td align="center">282</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">49</td>
+               <td align="center">T52</td>
+               <td align="center">T46</td>
+               <td align="left"><a href="/players/02/49/25/scorecards/2008/r028.html">Jonathan Byrd</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F*</td>
+               <td align="center">2</td>
+               <td align="center">71</td>
+               <td align="center">68</td>
+               <td align="center">71</td>
+               <td align="center">72</td>
+               <td align="center">282</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">6</td>
+               <td align="center">T55</td>
+               <td align="center">T48</td>
+               <td align="left"><a href="/players/00/65/95/scorecards/2008/r028.html">Kevin Sutherland</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F*</td>
+               <td align="center">3</td>
+               <td align="center">70</td>
+               <td align="center">73</td>
+               <td align="center">68</td>
+               <td align="center">72</td>
+               <td align="center">283</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">59</td>
+               <td align="center">T55</td>
+               <td align="center">T48</td>
+               <td align="left"><a href="/players/02/70/60/scorecards/2008/r028.html">John Mallinger</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F*</td>
+               <td align="center">3</td>
+               <td align="center">71</td>
+               <td align="center">65</td>
+               <td align="center">75</td>
+               <td align="center">72</td>
+               <td align="center">283</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">44</td>
+               <td align="center">T55</td>
+               <td align="center">T51</td>
+               <td align="left"><a href="/players/02/07/66/scorecards/2008/r028.html">Padraig Harrington</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F*</td>
+               <td align="center">3</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">72</td>
+               <td align="center">71</td>
+               <td align="center">283</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">29</td>
+               <td align="center">T55</td>
+               <td align="center">T56</td>
+               <td align="left"><a href="/players/02/76/49/scorecards/2008/r028.html">Brandt Snedeker</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F*</td>
+               <td align="center">3</td>
+               <td align="center">69</td>
+               <td align="center">77</td>
+               <td align="center">67</td>
+               <td align="center">70</td>
+               <td align="center">283</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">61</td>
+               <td align="center">T55</td>
+               <td align="center">T65</td>
+               <td align="left"><a href="/players/02/79/36/scorecards/2008/r028.html">Martin Laird</a> (BC)
+               </td>
+               <td align="center">-2</td>
+               <td align="center">F*</td>
+               <td align="center">3</td>
+               <td align="center">69</td>
+               <td align="center">70</td>
+               <td align="center">76</td>
+               <td align="center">68</td>
+               <td align="center">283</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">66</td>
+               <td align="center">T60</td>
+               <td align="center">T27</td>
+               <td align="left"><a href="/players/01/27/16/scorecards/2008/r028.html">Charley Hoffman</a> (BC)
+               </td>
+               <td align="center">7</td>
+               <td align="center">F</td>
+               <td align="center">4</td>
+               <td align="center">68</td>
+               <td align="center">71</td>
+               <td align="center">68</td>
+               <td align="center">77</td>
+               <td align="center">284</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">45</td>
+               <td align="center">T60</td>
+               <td align="center">T56</td>
+               <td align="left"><a href="/players/00/80/75/scorecards/2008/r028.html">Jerry Kelly</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F*</td>
+               <td align="center">4</td>
+               <td align="center">74</td>
+               <td align="center">66</td>
+               <td align="center">73</td>
+               <td align="center">71</td>
+               <td align="center">284</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">11</td>
+               <td align="center">T60</td>
+               <td align="center">T60</td>
+               <td align="left"><a href="/players/02/02/29/scorecards/2008/r028.html">Stewart Cink</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F*</td>
+               <td align="center">4</td>
+               <td align="center">73</td>
+               <td align="center">70</td>
+               <td align="center">71</td>
+               <td align="center">70</td>
+               <td align="center">284</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">38</td>
+               <td align="center">T60</td>
+               <td align="center">T65</td>
+               <td align="left"><a href="/players/02/79/33/scorecards/2008/r028.html">John Merrick</a> (BC)
+               </td>
+               <td align="center">-1</td>
+               <td align="center">F*</td>
+               <td align="center">4</td>
+               <td align="center">76</td>
+               <td align="center">74</td>
+               <td align="center">65</td>
+               <td align="center">69</td>
+               <td align="center">284</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">52</td>
+               <td align="center">T64</td>
+               <td align="center">T56</td>
+               <td align="left"><a href="/players/00/78/67/scorecards/2008/r028.html">Woody Austin</a> (BC)
+               </td>
+               <td align="center">2</td>
+               <td align="center">F*</td>
+               <td align="center">5</td>
+               <td align="center">69</td>
+               <td align="center">71</td>
+               <td align="center">73</td>
+               <td align="center">72</td>
+               <td align="center">285</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">39</td>
+               <td align="center">T64</td>
+               <td align="center">T60</td>
+               <td align="left"><a href="/players/02/01/60/scorecards/2008/r028.html">Charlie Wi</a> (BC)
+               </td>
+               <td align="center">1</td>
+               <td align="center">F*</td>
+               <td align="center">5</td>
+               <td align="center">76</td>
+               <td align="center">71</td>
+               <td align="center">67</td>
+               <td align="center">71</td>
+               <td align="center">285</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">42</td>
+               <td align="center">T64</td>
+               <td align="center">T65</td>
+               <td align="left"><a href="/players/02/18/78/scorecards/2008/r028.html">Mark Wilson</a> (BC)
+               </td>
+               <td align="center">E</td>
+               <td align="center">F*</td>
+               <td align="center">5</td>
+               <td align="center">69</td>
+               <td align="center">75</td>
+               <td align="center">71</td>
+               <td align="center">70</td>
+               <td align="center">285</td>
+            </tr>
+            <tr height="17" class="odd" align="right" valign="middle">
+               <td align="center">3</td>
+               <td align="center">T67</td>
+               <td align="center">T51</td>
+               <td align="left"><a href="/players/01/04/23/scorecards/2008/r028.html">Mike Weir</a> (BC)
+               </td>
+               <td align="center">5</td>
+               <td align="center">F*</td>
+               <td align="center">7</td>
+               <td align="center">69</td>
+               <td align="center">72</td>
+               <td align="center">71</td>
+               <td align="center">75</td>
+               <td align="center">287</td>
+            </tr>
+            <tr height="17" class="even" align="right" valign="middle">
+               <td align="center">23</td>
+               <td align="center">T67</td>
+               <td align="center">T60</td>
+               <td align="left"><a href="/players/02/13/50/scorecards/2008/r028.html">Ryuji Imada</a> (BC)
+               </td>
+               <td align="center">3</td>
+               <td align="center">F*</td>
+               <td align="center">7</td>
+               <td align="center">72</td>
+               <td align="center">70</td>
+               <td align="center">72</td>
+               <td align="center">73</td>
+               <td align="center">287</td>
+            </tr>
+         </table>
+      </div>
+   </div>
+   <!-- Build info: 2008-9-7 18:04:40,233 -->
+   <!--INCLUDE END SASD /.element/ssi/auto/3.0/sdms/leaderboards/r028/body/current/alt-1.html-->
+<div class="tourClear"></div>
+	<div id="tourLBLegend">
+	<div class="tourPodHeader">LEGEND</div>
+	<div id="tourLBLegendPod">
+		<div class="tourLBLegendLine">
+		<div class="tourLegendTitle">FedExCup Points:</div> 
+			<div class="tourLegendCell"><div class="tourLegendBox fcr1"></div> 1 &ndash; 30</div>
+			<div class="tourLegendCell"><div class="tourLegendBox fcr2"></div> 31 &ndash; 70</div>
+			<div class="tourLegendCell"><div class="tourLegendBox mrx"></div> 71 &ndash; 120</div>
+			<div class="tourLegendCell"><div class="tourLegendBox fcr3"></div> 121 &ndash; 144</div>			
+		</div>
+		<div class="tourClear"></div>
+		<div class="tourLBLegendLine">		
+		<div class="tourLegendTitle">Scorecard:</div> 
+			<div class="tourLegendCell"><div class="tourLegendBox Aces"></div> Aces</div>
+			<div class="tourLegendCell"><div class="tourLegendBox Eagles"></div> Eagles</div>
+			<div class="tourLegendCell"><div class="tourLegendBox Birdies"></div> Birdies</div>
+			<div class="tourLegendCell"><div class="tourLegendBox Par"></div> Par</div>
+			<div class="tourLegendCell"><div class="tourLegendBox Bogeys"></div> Bogeys</div>
+			<div class="tourLegendCell"><div class="tourLegendBox 2Bogeys"></div> Double Bogeys +/-</div>
+		</div>		
+		<div class="tourLBLegendLine">		
+		<div class="tourLegendTitle">Icons:</div> 
+			<div class="tourLegendCell"><div class="tourLegendBox tourLegendIcons">FC</div> FedExCup</div>
+			<div class="tourLegendCell"><div class="tourLegendBox tourLegendIcons">SC</div> Scorecard</div>
+			<div class="tourLegendCell"><div class="tourLegendBox tourLegendIcons">P</div> Play by Play</div>
+			<div class="tourLegendCell"><div class="tourLegendBox tourLegendIcons">S</div> Key Stats</div>
+			<div class="tourLegendCell"><div class="tourLegendBox tourLegendIcons">H</div> Hole Info</div>
+		</div>		
+		<div class="tourLBLegendLine">			
+		<div class="tourLegendTitle">Abbreviations:</div> 
+			<div class="tourLegendCell1">MDF = Made Cut Did Not Finish</div>
+			<div class="tourLegendCell1">MC = Missed Cut</div>
+			<div class="tourLegendCell1">WD = Withdrawn</div>
+		</div>					
+	</div>
+
+<p>The color-coded cells at the far left of the leaderboard indicate the range of a player's position on the FedExCup Points at the start of the week's event.</p>	
+<p class="b">The asterisk (*) identifies a player who started on the back nine.</p>
+<p class="c b">ACCEPTANCE OF TERMS</p>
+<p>By loading this page and continuing to use PGATOUR.com you agree to comply with the Terms of Service governing PGATOUR.com, as such may be revised from time to time. The current version of the Terms of Service governing PGATOUR.com is available at <a href="http://www.pgatour.com/company/tos.html">http://www.pgatour.com/company/tos.html</a>.</p>
+</div>
+
+<div class="tourClear"></div>
+	<div id="tourSponsoredLinksContainer" style="position:relative; display: none;">
+	<div id="tourSponsoredLinksSub">
+		<iframe id="tourSponosredLinksIframe" src="" scrolling="no" frameborder="0" style="overflow: visible; width: 670px; height:150px; display: block;" hspace="0" vspace="0" marginheight="0" marginwidth="0"></iframe>
+		<script type="text/javascript">
+			var url = '/.element/ssi/global/3.0/footer/spons_links_iframe.html?' + escape(location.href);
+			document.getElementById('tourSponosredLinksIframe').src = url;
+		</script>
+	</div>
+</div>
+<div style="position:relative; padding-top: 10px;"></div>		
+</div> <!-- tourFullContent end -->
+
+<div id="tourFullRight">
+	<!--INCLUDE BEGIN SASD /.element/ssi/auto/3.0/sdms/tournaments/r028/nav/nav.html--><script language="Javascript">
+        	nav = {		
+                        	
+    	"index": { status:"On",name:"Tournament Home", overrideURL:""}  ,             	
+    	"lb": { status:"On",name:"Full leaderboard", overrideURL:""}  ,             	
+    	"etc": { status:"Off",name:"Explore the Course", overrideURL:""}  ,             	
+    	"tc": { status:"Off",name:"Tournament Central", overrideURL:""}  ,             	
+    	"field": { status:"On",name:"Field", overrideURL:""}  ,             	
+    	"tee-times": { status:"On",name:"Tee Times", overrideURL:""}  ,             	
+    	"results": { status:"On",name:"Results", overrideURL:""}  ,             	
+    	"winners": { status:"On",name:"Winners", overrideURL:""}  ,             	
+    	"local-info": { status:"On",name:"Local Info", overrideURL:""}  ,             	
+    	"course": { status:"On",name:"Course", overrideURL:""}  ,             	
+    	"tickets": { status:"On",name:"Tickets", overrideURL:""}  ,             	
+    	"sponsors": { status:"On",name:"Sponsors", overrideURL:""}  ,             	
+    	"news": { status:"On",name:"News", overrideURL:""}  ,             	
+    	"schedule": { status:"On",name:"Schedule", overrideURL:""}  ,             	
+    	"charity": { status:"On",name:"Charity", overrideURL:""}  ,             	
+    	"hospitality": { status:"On",name:"Corporate Hospitality", overrideURL:""}  ,             	
+    	"pro-am": { status:"On",name:"Pro-Am", overrideURL:""}  ,             	
+    	"volunteer-info": { status:"On",name:"Volunteer Info", overrideURL:""}  ,             	
+    	"special-1": { status:"Off",name:"", overrideURL:""}  ,             	
+    	"special-2": { status:"Off",name:"", overrideURL:""} 
+            };  
+            </script>
+   <!--INCLUDE END SASD /.element/ssi/auto/3.0/sdms/tournaments/r028/nav/nav.html-->
+<div id="tourTournNavUnPaid">
+	<div class="tourTournNavName">Tournament Overview</div>
+	<div class="tourTournNavList">
+		<div class="tourTournNavHalf">
+			<ul>
+				<li id="nv_index"><a href="/tournaments/r028/">Main</a></li>
+				<li id="nv_lb"><a href="/leaderboards/current/r028/">Full Leaderboard</a></li>
+				<li id="nv_tee-times"><a href="/tournaments/r028/tee-times.html">Tee Times</a></li>
+				<li id="nv_field"><a href="/tournaments/r028/field.html">Field</a></li>
+			</ul>
+		</div>
+		<div class="tourTournNavHalf">
+			<ul>
+				<li id="nv_liveat" style="display: none;"><a href="/livegolf/">Live Video</a></li>
+				<li id="nv_course"><a href="/tournaments/r028/course.html">Course</a></li>
+				<li id="nv_schedule"><a href="/tournaments/r028/schedule.html">Schedule</a></li>
+				<li id="nv_news"><a href="/tournaments/r028/news/">Full Tournament News</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="tourTournNavFooter"></div>
+</div>
+<script language="Javascript" src="/.element/ssi/js/3.0/sect/tournaments_nav.js" ></script>
+<div class="tourClear"></div>
+<script language="JavaScript">
+	
+		Times = {
+			
+			"title": "BMW Championship",
+			
+			"liveat": [
+				
+					{ "date": "20080904"
+					,"start": "1200"
+					,"finish": "1430"
+					} ,
+					{ "date": "20080905"
+					,"start": "1140"
+					,"finish": "1800"
+					} ,
+					{ "date": "20080906"
+					,"start": "0800"
+					,"finish": "1930"
+					} ,
+					{ "date": "20080907"
+					,"start": "1100"
+					,"finish": "1800"
+					} 
+			],
+			
+			"tv": [
+				
+					{ "date": "20080904"
+					,"channel": "golf"
+					,"start": "1400"
+					,"finish": "1800"
+					
+					},
+					{ "date": "20080905"
+					,"channel": "golf"
+					,"start": "1400"
+					,"finish": "1800"
+					
+					},
+					{ "date": "20080906"
+					,"channel": "nbc"
+					,"start": "1200"
+					,"finish": "1530"
+					
+						,"channel2": "golf"
+						,"start2": "1530"
+						,"finish2": "2100"
+					
+					},
+					{ "date": "20080907"
+					,"channel": "nbc"
+					,"start": "1400"
+					,"finish": "1800"
+					
+					}
+			],
+			"xm": [
+				
+					{ "date": "20080904"
+					,"start": "0600"
+					,"finish": "2000"
+					},
+					{ "date": "20080905"
+					,"start": "0600"
+					,"finish": "2000"
+					},
+					{ "date": "20080906"
+					,"start": "0600"
+					,"finish": "2100"
+					},
+					{ "date": "20080907"
+					,"start": "0600"
+					,"finish": "2400"
+					}
+			]
+		};
+	 var Tourn_Id = 'r028';
+	if (Times) { if (Times.liveat) show (document.getElementById('nv_liveat')); }
+</script>
+
+
+	<!-- 300x250 ROS AD -->		
+	<div id="tour300Ad"><!-- ADSPACE: live_scoring/pgatour/right.300x250 --><div align="center" style="padding: 0; margin: 0; border: 0;"><script type="text/javascript">
+
+
+
+cnnad_createAd("300404","http://ads.pgatour.com/html.ng/site=pgatour&pgatour_pos=300x250_rgt&pgatour_rollup=live_scoring&pgatour_section=pgatour&params.styles=fs","250","300");
+if (cnnad_adIframes)
+{
+    cnnad_adIframes[cnnad_adIframes.length] = 300404;
+}
+
+
+
+</script></div></div>
+<!-- /300x250 ROS AD -->	
+	 
+
+<script language="JavaScript" src="http://i.cdn.turner.com/pgatour/.element/ssi/js/3.0/global/toolbar/toolbar.js"></script>
+<script language="JavaScript" src="http://i.cdn.turner.com/pgatour/.element/ssi/js/3.0/global/toolbar/toolbar.rail.js"></script>
+<script language="JavaScript">
+
+		Times = {
+			
+			"title": "Chevron World Challenge pres. by Bank of America",
+			
+			"tv": [
+				
+					{ "date": "20081218"
+					,"channel": "golf"
+					,"start": "1500"
+					,"finish": "1800"
+					
+					},
+					{ "date": "20081219"
+					,"channel": "golf"
+					,"start": "1500"
+					,"finish": "1800"
+					
+					},
+					{ "date": "20081220"
+					,"channel": "nbc"
+					,"start": "1500"
+					,"finish": "1800"
+					
+					},
+					{ "date": "20081221"
+					,"channel": "nbc"
+					,"start": "1500"
+					,"finish": "1800"
+					
+					}
+			],
+			"xm": [
+				
+			]
+		};
+	 var Tourn_Id = 'r478';
+</script>
+
+<!-- #include virtual="/.element/ssi/auto/3.0/cms/sect/r/ttoolbar.html" -->
+
+
+<script language="JavaScript"> showTimes(Times); </script>
+	
+	<style>
+#tourPodTeeTimes div.tour88x31Ad {
+	top:28px;
+	right:5px;
+}
+	*:first-child+html #tourPodTeeTimes div.tour88x31Ad {
+		top:28px;
+	}
+	#tourRolexBotPod {
+		position:relative;
+		margin:0px;
+		_margin:-3px 0 0px;
+		padding-bottom:3px;
+		width:300px;
+		background:url(http://i.cdn.turner.com/pgatour/.element/img/3.0/global/promotions/rolex/gradient_bkgrnd.jpg) no-repeat center top;
+	}
+	*:first-child+html #tourRolexBotPod {
+		margin:-3px 0 0px;
+	}
+	#tourRolexTabbedBot {
+		position:relative;
+		left:11px;
+		width:276px;
+		background:#2E2101;
+		border-left:1px solid #FDE094;
+		border-right:1px solid #FDE094;
+		border-bottom:1px solid #FDE094;	
+	}
+	#tourRolexTabbedBot a {	
+		text-decoration:none;
+		color:#2E2101;
+		font-weight:bold;
+	}
+	#tourRolexTabbedBot a:hover {	
+		text-decoration:none;
+		color:#C48D04;
+		font-weight:bold;		
+	}	
+		#tourRolexNextTee {
+			position:relative;
+			width:300px;
+			color:#FDE094;
+			font-size:12px;
+			font-weight:bold;
+			padding-top:10px;
+			text-indent:25px;
+			background:url(http://i.cdn.turner.com/pgatour/.element/img/3.0/global/promotions/rolex/tabbed_bkgrnd1.gif) no-repeat center top;	
+		}
+		div.tourRolexFirHole {
+			position:relative;
+			top:1px;
+			left:1px;
+			width:274px;
+			height:59px;
+			background:#C9B278;
+			color:#2E2101;
+			font-size:11px;
+			margin-bottom:2px;
+		}
+		div.tourRolexSecHole {
+			position:relative;
+			left:1px;			
+			width:274px;
+			height:59px;
+			background:#FFE095;
+			color:#2E2101;
+			font-size:11px;		
+			margin-bottom:1px;
+		}
+			#tourRolexTabbedBot table {		
+				position:relative;
+				width:100%;
+				height:100%;
+				font-size:11px;		
+				color:#2E2101;								
+			}
+				#tourRolexTabbedBot td {
+					vertical-align:middle;
+				} 		
+				td.tourRolexPlayers {
+					width:60%;
+					text-indent:5px;
+					font-weight:bold;
+				}	
+				td.tourRolexHole {
+					width:48%;
+					font-size:18px;
+					font-weight:bold;
+				}					
+				td.tourRolexTime {
+					width:48%;
+					font-size:12px;
+				}					
+</style>
+<div id="tourPodTeeTimes">
+<div class="tourPodHeader">TEE TIME CLOCK<div class="tour88x31Ad"><!-- ADSPACE: live_scoring/pgatour/spon.88x31 --><div id="ad-312216" align="center" style="padding: 0; margin: 0; border: 0;"><script type="text/javascript"> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+cnnad_createAd("312216","http://ads.pgatour.com/html.ng/site=pgatour&pgatour_pos=88x31_spon&pgatour_rollup=live_scoring&pgatour_section=pgatour&params.styles=fs","31","88");
+
+
+
+
+
+
+
+
+
+
+
+
+</script></div></div></div>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" name="rolex-clock" width="300" height="100" align="middle" id="rolex-clock">
+    <param name="allowScriptAccess" value="sameDomain" />
+    <param name="quality" value="high" />
+<param name="movie" value="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/promotions/rolex/Rolex-PGATour_leaderboard_300x100.swf?country=US&amp;venue=Atlanta GA">
+<embed src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/promotions/rolex/Rolex-PGATour_leaderboard_300x100.swf?country=US&amp;venue=Atlanta GA" width="300" height="100">
+</embed>
+</object>
+<!-- Build info: 2008-9-28 18:24:36,03 -->
+<div class="tourPodFooter">
+	<ul>
+		<li><a href="/tournaments/r060/tee-times.html">Complete Tee Times</a></li>
+	</ul>
+</div>
+</div>
+			
+	<!--include virtual="/.element/ssi/sect/3.0/tournaments/r028/.rail/keystats_lb.html"-->	
+	<!--include virtual="/.element/ssi/global/3.0/rail/shop_pod.html"-->	
+	<!--include virtual="/.element/ssi/global/3.0/rail/fantasy_pod.html"-->	
+	<!-- ADSPACE: live_scoring/pgatour/right.160x600 --><div align="center" style="padding: 0; margin: 0; border: 0;"><script type="text/javascript">
+
+
+
+cnnad_createAd("748394","http://ads.pgatour.com/html.ng/site=pgatour&pgatour_pos=160x600_rgt&pgatour_rollup=live_scoring&pgatour_section=pgatour&params.styles=fs","600","160");
+if (cnnad_adIframes)
+{
+    cnnad_adIframes[cnnad_adIframes.length] = 748394;
+}
+
+
+
+</script></div>		
+</div>
+</div> <!-- tourContent End -->	
+<div class="tourClear"></div>
+<div id="tourFooter">
+	<div class="tourFooterLinks">
+		<div class="tourFooterHeader">PGA TOUR Corporate</div>
+		<ul>
+			<li><a href="/company/about_us.html">About PGA TOUR</a></li>
+			<li><a href="/company/executive_bios.html">Commissioner's Office</a></li>
+			<li><a href="/company/productions.html">PGA TOUR Productions</a></li>
+			<li><a href="http://www.tpc.com/">Tournament Players Clubs</a></li>
+			<li><a href="/tournaments/tickets/">Tournament Tickets</a></li>
+			<li><a href="/company/online_staff.html">Online Staff</a></li>
+			<li><a href="/company/giving.html">TOUR Charities</a></li>
+			<li><a href="/company/benevolent.html">Volunteer</a></li>
+			<li><a href="http://careers.vurvexpress.com/default.cfm?szWID=10455&szCID=47049&szSiteID=218&rss=0" target="_blank">Career Opportunities</a></li>
+			<li><a href="/company/internships.html">Internships</a></li>
+			<li><a href="/company/employment_policy.html">Employment Policies</a></li>																		
+			<li><a href="/company/contactus.html">Contact Us</a></li>																				
+		</ul>
+	</div>
+	<div class="tourFooterLinks">
+		<div class="tourFooterHeader">PGATOUR.COM</div>
+		<ul>
+			<li><a href="/widgets/">Widgets</a></li>
+			<li><a href="/company/tos.html">Terms of Service</a></li>	
+			<li><a href="/company/privacy.html">Privacy Policy</a></li>	
+			<li><a href="/member_services/feedback.html">Feedback</a></li>							
+			<li><a href="/company/contactus.html">Contact Us</a></li>
+		</ul>
+	</div>	
+	<div class="tourFooterLinks">
+		<div class="tourFooterHeader">Media Room</div>
+		<ul>
+			<li><a href="/company/">Press Releases</a></li>		
+			<li><a href="/multimedia/audio/pgatournetwork/">PGA TOUR Network on XM Satellite Radio</a></li>		
+			<li><a href="/tv-times/">TV Times</a></li>		
+			<li><a href="/multimedia/wireless/">Wireless</a></li>		
+			<li><a href="/member_services/newsletter.html">Newsletters</a></li>	
+			<li><a href="/multimedia/podcasts/">Podcasts</a></li>		
+			<li><a href="/company/media_guides.html">Media Guides</a></li>																										
+		</ul>
+	</div>
+	<div class="tourFooterLinks">
+		<div class="tourFooterHeader">Sales and Marketing</div>
+		<ul>	
+			<li><a href="/company/marketing_online.html">Online Advertising and Promotion</a></li>	
+			<li><a href="/company/marketing_title_sponsor.html">Title Sponsors</a></li>			
+			<li><a href="/company/marketing_official_marketing_partnership.html">Official Marketing Partners</a></li>	
+			<li><a href="/company/partners.html">Corporate Partners</a></li>			
+			<li><a href="/company/marketing_retail.html">Licensees</a></li>							
+			<li><a href="/company/licensees.html">Retail Licensing</a></li>				
+		</ul>
+	</div>
+	<div class="tourFooterLinks">
+		<div class="tourFooterHeader">Partners</div>
+		<ul>
+			<li><a href="http://www.wgv.com/">World Golf Hall of Fame</a></li>	
+			<li><a href="http://www.thefirsttee.org/Club/Scripts/Home/home.asp">The First Tee</a></li>	
+			<li><a href="http://visitors.partnersclubonline.com/?promotion=9P02FOOT&siteid=001">PGA TOUR Partners Club</a></li>	
+			<li><a href="/birdiesforthebrave/">Birdies for the Brave</a></li>	
+			<li><a href="http://www.pgatourwives.org/">PGA TOUR Wives</a></li>
+			<li><a href="/tournaments/r169/">Omega Mission Hills World Cup</a></li>			
+			<li><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/icons/flags/CHI.gif" alt="" style="vertical-align:middle;" /> <a href="http://golf.sina.com.cn">China Website</a></li>
+			<li><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/icons/flags/JPN.gif" alt="" style="vertical-align:middle;" /> <a href="http://www.golfdigest.co.jp/pgatour/default.asp">Japan Website</a></li>	
+			<li><img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/icons/flags/JPN.gif" alt="" style="vertical-align:middle;" /> <a href="http://www.pgatourm.jp/">Japan Mobile</a></li>													
+		</ul>	
+	</div>	
+	<div class="tourClear"></div>
+	<div class="tourFooterCopyright">&copy; 1995-2008 PGA TOUR, Inc. | Turner Sports Interactive, Inc. All Rights Reserved. PGA TOUR, Champions Tour, Nationwide Tour and the swinging golfer logo are registered trademarks.
+	<div class="tourClear"></div>
+<img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/hp-turnerfooter.gif" style="vertical-align:bottom;_vertical-align:top;padding-top:3px;_padding-top:0px;" alt="Turner" />PGATOUR.com is part of the Turner Sports and Entertainment Digital Network</div>
+</div>
+<!-- #include virtual="/.element/ssi/js/3.0/global/omniture/pageInclude.txt"-->
+<script language="JavaScript" src="/.element/ssi/js/1.0/omniture/s_code.js"></script>
+<script language="JavaScript" src="/.element/ssi/js/1.0/omniture/omniture.js"></script>
+<script language="JavaScript"><!--
+  // store all omniture related data in "s"
+  populateOmnitureStructure();
+
+  /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+  var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+  <!-- SiteCatalyst Code 
+  Copyright 1997-2006 Omniture, Inc. 
+  More info available at http://www.omniture.com -->
+</script>
+
+<!--http://i.pgatour.com/pgatour-->
+<!-- ad_tail0.txt -->
+
+<img src="http://i.cdn.turner.com/pgatour/.element/img/3.0/global/1x1.gif" alt="" id="TargetImageDE" name="TargetImageDE" width="1" height="1" onLoad="cnnad_getDEAdHeadCookie(this);" />
+
+
+<script src="http://i.cdn.turner.com/pgatour/.element/ssi/js/3.0/global/footer.arrow.js" type="text/javascript"></script>
+<!-- safecount code -->
+<script src="http://content.dl-rms.com/rms/mother/2521/nodetag.js"></script>
+<!-- /safecount code -->
+</div> <!-- tourContainer End -->	
+</body>
+</html>

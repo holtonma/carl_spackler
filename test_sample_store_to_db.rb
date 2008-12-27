@@ -11,7 +11,8 @@ class TestSampleStore < Test::Unit::TestCase
   
   def setup
     # mocking this out to not hit the network...
-    pga_data = open("alt-1.html") { |f| Nokogiri(f) }
+    #pga_data = open("alt-1.html") { |f| Nokogiri(f) }
+    pga_data = open("alt-2.html") { |f| Nokogiri(f) }
     @test_leaderboard = Nokogiri(pga_data.to_html).to_s
     
     #invalid:

@@ -5,6 +5,9 @@ include CARL_SPACKLER
 
   pga = PGA.new
   
+  pga_data = open("alt-2.html") { |f| Nokogiri(f) }
+  @test_leaderboard = Nokogiri(pga_data.to_html).to_s
+    
   urls = pga.get_urls(2008)
   my_db = DB.new("127.0.0.1", "root", "", "tour_data") #ip, user, pass, db_name
   
