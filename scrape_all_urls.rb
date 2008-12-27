@@ -1,6 +1,7 @@
 # Mark Holton, Oct 2008...
 require 'carl_spackler'
 require 'sample_store_to_db'
+
 include CARL_SPACKLER
 
   pga = PGA.new
@@ -10,6 +11,7 @@ include CARL_SPACKLER
     
   urls = pga.get_urls(2008)
   my_db = DB.new("127.0.0.1", "root", "", "tour_data") #ip, user, pass, db_name
+  #my_db = DB.new("76.12.19.132", "golfap", "Aviaryv1", "golfap") 
   
   #test_urls = []
   #test_urls << pga.get_urls(2008)[1]

@@ -29,11 +29,13 @@ module CARL_SPACKLER
         # html data urls for 2008  
         # work: r020 r480 r023 r034 r035 r030 r476 r027 r505 r028 r060 r045 r004 r060 r473 
         # work: r012 r019 r022 r021 r025 r471 r029 r032 r472 r013 r483 r018 
-        # diff format: r476 r473 r027 r028 r045 r060 r505
+        # diff format: r476 (div.tourTournSubName not found: WGC format)
+                    #: r027 r028(no tournSubName, pgaformat)  
+                    #: r045 r060 r505
         urls = %w(
-                  r483 r018 r054 r481 r012 r019 r022 r021 r025 r471 r029 r032 
-                  r472 r013 r041 r047 r464 r482 r475 r010 r457 r007 r005 r003 
-                  r020 r480 r023 r034 r035 r030 r045 r004 r060  
+                  r045 r060 r505 r029 r032 r028 r020 r480 r023 r034 r035 r030
+                  r003 r004 r483 r018 r054 r481 r012 r019 r022 r021 r025 r471 
+                  r472 r013 r041 r047 r464 r482 r475 r010 r457 r007 r005 r027 
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
@@ -57,15 +59,39 @@ module CARL_SPACKLER
         
         doc = Nokogiri::HTML(open(url))
         tourn = OpenStruct.new
-        tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv 
+        
+        #array of hash literals for those that can't be scraped 
+        tourn_misfits = [
+          {:name => "The Barclays"},
+          {:name => "BMW Championship"},
+          {:name => "The Tour Championship"},
+          {:name => "Deutsche Bank Championship"}
+        ]
+        
+        # div.tourTourSubName not defined
+        if doc.css('div.tourTournSubName').first == nil
+          # name doesn't exist in markup, therefore lookup in hash
+          if url == "http://www.pgatour.com/leaderboards/current/r027/alt-1.html"
+            tourn.name = tourn_misfits[0][:name]
+          elsif url == "http://www.pgatour.com/leaderboards/current/r028/alt-1.html"
+            tourn.name = tourn_misfits[1][:name]
+          elsif url == "http://www.pgatour.com/leaderboards/current/r060/alt-1.html"
+            tourn.name = tourn_misfits[2][:name]
+          elsif url == "http://www.pgatour.com/leaderboards/current/r505/alt-1.html"
+            tourn.name = tourn_misfits[3][:name]
+          end
+        else
+          tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv.gsub!(/'/, "")
+        end   
+        
         if doc.css('div.tourTournNameDates').first == nil
           #some leaderboards have different formats:
           tourn.dates = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[0]
-          tourn.course = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[1]
+          tourn.course = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[1].gsub!(/'/, "")
           #puts tourn.dates #puts tourn.course
         else
           tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournNameDates') == nil 
-          tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournHeadLinks') == nil
+          tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv.gsub!(/'/, "") #unless doc.css('div.tourTournHeadLinks') == nil
           #tourn.img = doc.css('div.tourTournLogo').first.inner_html
         end
         
