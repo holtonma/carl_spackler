@@ -26,12 +26,8 @@ module CARL_SPACKLER
         
     def get_urls(year)
       if year == 2008
+        # diff format: r476 
         # html data urls for 2008  
-        # work: r020 r480 r023 r034 r035 r030 r476 r027 r505 r028 r060 r045 r004 r060 r473 
-        # work: r012 r019 r022 r021 r025 r471 r029 r032 r472 r013 r483 r018 
-        # diff format: r476 (div.tourTournSubName not found: WGC format)
-                    #: r027 r028(no tournSubName, pgaformat)  
-                    #: r045 r060 r505
         urls = %w(
                   r045 r060 r505 r029 r032 r028 r020 r480 r023 r034 r035 r030
                   r003 r004 r483 r018 r054 r481 r012 r019 r022 r021 r025 r471 
