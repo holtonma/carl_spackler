@@ -172,7 +172,8 @@ module CARL_SPACKLER
                   2008040 2008042 2008044 2008046 2008050 2008052 2008054 2008056 2008062 2008068 
                   2008070 2008072 2008074 2008076 2008078 2008083 2008084 2008086 2008088
                 ).map { |t|
-                  "http://scores.europeantour.com/default.sps?pagegid={9FFD4839-08EC-4F90-85A2-10F94D42CDB2}&eventid=#{t}&ieventno=2008088&infosid=2"
+                  #get rid of ugly assed pageid brackets
+                  URI.escape("http://scores.europeantour.com/default.sps?pagegid={9FFD4839-08EC-4F90-85A2-10F94D42CDB2}&eventid=#{t}&ieventno=2008088&infosid=2")
                 }
       elsif year == 2007
         urls = []
@@ -183,7 +184,82 @@ module CARL_SPACKLER
       urls
     
     end
+    
+    def tourney_info(url)
+      # tournament name, dates, golf course, location
+        # <div id = "tournHeaderDiv">Commercialbank Qatar Masters presented by Dolphin Energy</div>
+        # <div id = "tournVenue">Doha G.C.</div>
+        # <div id = "tournLocal">Doha, Qatar</div>
+        # <div id = "tournHeaderDate">24 Jan 2008  - 27 Jan 2008 </div>
+        
+        doc = Nokogiri::HTML(open(url))
+        
+        tourn = OpenStruct.new
+        
+        tourn.name = doc.css('div#tournHeaderDiv').first.inner_text.strip().to_ascii_iconv  
+        tourn.course = doc.css('div#tournVenue').first.inner_text.strip().to_ascii_iconv
+        tourn.dates = doc.css('div#tournHeaderDate').first.inner_text.strip().to_ascii_iconv
+        tourn.local = doc.css('div#tournLocal').first.inner_text.strip().to_ascii_iconv
+         
+        tourn
+    end
+    
+    def fetch(url, incl_missed_cut=false)
+      doc = Nokogiri::HTML(open(url))
+      
+      player_data = []
+      cells = []
+            
+      #made cut and missed cut
+      doc.css('div#scoresBoard2 table')[0].css('tr').each do |row|
+        row.css('td').each do |cel|
+          cells << cel.inner_text.strip().to_ascii_iconv
+        end
+        player_data << cells
+        #puts "player_data: #{player_data}"
+        cells = []
+      end
+      #puts "player_data: #{player_data}"
+      #puts "player_data.length: #{player_data.length}"
+      player_data.pop
+      player_data.pop
+      player_data.pop
+      player_data.reverse!
+      player_data.pop
+      player_data.reverse!
+      player_data.pop
+      player_data.pop
+      player_data
+    end
+    
+    def friendly_structure player_data
+      # take player_data and turn it into array of Ostructs
+      #puts "this is player data: #{player_data}"
+      players = []
+      player_data.each do |p|
+        next unless (p.length > 0 && p[1] != "Pos")
+        playa = OpenStruct.new
+        # extract data from PGA cells:
+        playa.start = p[0]
+        playa.pos = p[1]
+        playa.name = p[2]
+        playa.fname = p[2].split(" ")[1].chomp(",") #need to improve this
+        playa.lname = p[2].split(" ")[0].chomp(",") #need to improve this
+        playa.thru = p[4]
+        playa.to_par = p[5]
+        playa.r1 = p[6] 
+        playa.r2 = p[7]
+        playa.r3 = p[8]
+        playa.r4 = p[9]
+        playa.total = (playa.r1.to_i + playa.r2.to_i + playa.r3.to_i + playa.r4.to_i).to_s
+        #puts playa
+        players << playa
+      end
+      
+      return players
+    end
   end
+  
   
   class Nationwide
   end
