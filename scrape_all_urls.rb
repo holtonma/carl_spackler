@@ -17,7 +17,7 @@ include CARL_SPACKLER
     tourney = pga.tourney_info(url) # fetch info
     lb = Leaderboard.new(tourney, players, my_db) #ready to store
     #store tourney
-    insert = lb.insert_new_event(tourney.name, 2009, tourney.dates, tourney.course)
+    insert = lb.insert_new_event(tourney.name, 2008, tourney.dates, tourney.course)
     players_updated = lb.store_tourney #store player data!
     lb.orphans.each{ |o| all_orphans << o}
     #puts "all_orphans: #{all_orphans.length}"

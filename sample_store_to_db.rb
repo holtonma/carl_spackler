@@ -48,8 +48,13 @@ class Leaderboard
       # orphan[:time] = Time.now
       # orphan[:fname] = fname
       # orphan[:lname] = lname
-      orphan = "#{lname}, #{fname}"
-      @orphans << orphan
+      unless lname.strip =~ /'/ #i don't want to collect player names for now with '
+        orphan = OpenStruct.new
+        orphan.lname = lname.strip()
+        orphan.fname = fname.strip()
+        #orphan = "#{lname}, #{fname}"
+        @orphans << orphan
+      end
     end
     
     golfer_id.to_i
@@ -179,6 +184,40 @@ class Leaderboard
     
     ids_stored
   end
+  
+  def check_golfer_exists(last_name, first_name)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    first = dbh.escape_string(first_name.strip())
+    last = dbh.escape_string(last_name.strip())
+    
+    puts "first: #{first} last:#{last}"
+    q_string = "SELECT id FROM golfer WHERE lname = '#{last}' AND fname = '#{first}'"
+    puts q_string
+    dbh.query(q_string).num_rows()
+  end
+  
+  def insert_golfer(last_name, first_name)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    if last_name == nil || last_name == "" || first_name == "" || first_name == nil
+      return "not inserted: nil or '' in one of names"
+    else
+      
+      first = dbh.escape_string(first_name.strip())
+      last = dbh.escape_string(last_name.strip())
+      
+      exists_val = self.check_golfer_exists(last, first)
+      if exists_val == 0 #player doesn't yet exist in db, therefore insert him
+      
+        dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+      
+        q2 = dbh.query("INSERT INTO golfer (fname, lname, degs_of_wally, image, active, madecut, thru, event_id, position)
+            VALUES('#{first}', '#{last}', 2, 'qualifier', 0, 0, '-', 0, '-')")
+          
+        return "inserted #{last}, #{first}"
+      end
+    end
+  end
+  
   
   
 end
