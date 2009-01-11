@@ -25,9 +25,8 @@ module CARL_SPACKLER
   class Player
 
     SPECIALS = []
-    LAST_ONE_NAMES = ["Olazabal", "Broeck", "Jimenez"] #for names where last 1 name = lname
-    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt"] #for names where last 2 names = lname
-    IGNORES =  [ "(", ")"]
+    LAST_ONE_NAMES = ["Olazabal", "Jimenez", "Johnson", "Singh", "Thompson", "Chang"] #for names where last 1 name = lname
+    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck"] #for names where last 2 names = lname
     
     def initialize(scraped_full_name)
       @full_name = scraped_full_name
@@ -44,10 +43,9 @@ module CARL_SPACKLER
 
     def flatten name
       #flatten special characters to non-freakish ASCII.  E.g. different than straight flatten, make é = e (not e'')
-      re = /\(\w{2}\)/ #strip out course in parens E.g. Davis Love III (PB)
-      processed = name.gsub(re, "")
-      #get rid of commas in name
-      processed = processed.gsub(/,/, "")
+      re = /\(\w{2}\)/ 
+      processed = name.gsub(re, "") #strip out course in parens E.g. Davis Love III (PB)
+      processed = processed.gsub(/,/, "") #get rid of commas in name
       processed
     end
 
@@ -211,12 +209,8 @@ module CARL_SPACKLER
         playa.start = p[2]
         playa.name = p[3]
         this_player = Player.new(playa.name)
-        #puts "this_player: #{this_player}"
-        # playa.fname = p[3].split(" ")[0] #need to improve this
-        # playa.lname = p[3].split(" ")[1] #need to improve this
         playa.fname = this_player.fname
         playa.lname = this_player.lname
-        #puts "lname: #{playa.lname}"
         playa.today = p[4]
         playa.thru = p[5]
         playa.to_par = p[6]
