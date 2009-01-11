@@ -25,8 +25,8 @@ module CARL_SPACKLER
   class Player
 
     SPECIALS = []
-    LAST_ONE_NAMES = ["Olazabal", "Jimenez", "Johnson", "Singh", "Thompson", "Chang"] #for names where last 1 name = lname
-    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck"] #for names where last 2 names = lname
+    LAST_ONE_NAMES = ["Olazabal", "Jimenez", "Johnson", "Singh", "Thompson", "Hicks"] #for names where last 1 name = lname
+    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck", "Wan"] #for names where last 2 names = lname
     
     def initialize(scraped_full_name)
       @full_name = scraped_full_name
@@ -310,8 +310,9 @@ module CARL_SPACKLER
         playa.start = p[0]
         playa.pos = p[1]
         playa.name = p[2]
-        playa.fname = p[2].split(" ")[1].chomp(",") #need to improve this
-        playa.lname = p[2].split(" ")[0].chomp(",") #need to improve this
+        this_player = Player.new(playa.name)
+        playa.fname = this_player.fname
+        playa.lname = this_player.lname
         playa.thru = p[4]
         playa.to_par = p[5]
         playa.r1 = p[6] 
