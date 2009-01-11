@@ -27,7 +27,7 @@ include CARL_SPACKLER
   
   a.each do |o|
     puts "inserting... #{o.lname}, #{o.fname}"
-    @lb.insert_golfer(o.lname, o.fname)
+    #@lb.insert_golfer(o.lname, o.fname)
   end 
   
   

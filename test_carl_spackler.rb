@@ -9,26 +9,37 @@ class TestCarlSpackler < Test::Unit::TestCase
   
   def setup
     # mocking this out to not hit the network...
-    pga = open("alt-1.html") { |f| Nokogiri(f) }
+    pga = open("alt-3.html") { |f| Nokogiri(f) }
     @test_leaderboard = Nokogiri(pga.to_html).to_s
   end
   
   def test_open_mock_file
-    pga = open("alt-1.html") { |f| Nokogiri(f) }
+    pga = open("alt-3.html") { |f| Nokogiri(f) }
     doc = Nokogiri(pga.to_html)
-    assert_equal 157803, doc.to_s.length #make sure we have the correct file
+    assert_equal 4355, doc.to_s.length #make sure we have the correct file
     assert_equal Nokogiri::HTML::Document, doc.class
       #  everytime Nokogiri::HTML(open(url)) is called inside of 'carl_spackler' class, 
       #  return the mock sample, instead of hitting the network
   end
   
-  def test_scrape_pga_tour
+  def test_grab_players
     pga = PGA.new
-    url = "http://www.pgatour.com/leaderboards/current/r045/alt-1.html"
+    url = "http://www.pgatour.com/leaderboards/current/r005/alt-1.html"
     flexmock(pga).should_receive(:open).with(url).and_return{
       @test_leaderboard
     }
     players = pga.fetch(url) 
+    puts players
+  end
+  
+  def test_scrape_pga_tour
+    pga = PGA.new
+    url = "http://www.pgatour.com/leaderboards/current/r005/alt-1.html"
+    # flexmock(pga).should_receive(:open).with(url).and_return{
+    #   @test_leaderboard
+    # }
+    players = pga.fetch(url) 
+    # 2008 Pebble Beach Pro-Am
     assert_equal 71, players.length
     assert_equal 12, players[0].length
     assert_equal 12, players[1].length
@@ -62,13 +73,14 @@ class TestCarlSpackler < Test::Unit::TestCase
   
   def test_friendly_structure
     pga = PGA.new
-    url = pga.get_urls(2008)[4]
-    flexmock(pga).should_receive(:open).with(url).and_return{
-      @test_leaderboard
-    }
+    url = pga.get_urls(2008)[34]
+    # flexmock(pga).should_receive(:open).with(url).and_return{
+    #   @test_leaderboard
+    # }
     players = pga.friendly_structure(pga.fetch(url, true))
     assert_equal "Steve",  players[1].fname
     assert_equal 182, players.length
+    
     # need to add more validations here
     #
   end
@@ -76,33 +88,28 @@ class TestCarlSpackler < Test::Unit::TestCase
   def test_08_urls
     pga = PGA.new
     urls = pga.get_urls(2008)
-    assert_equal 24, urls.length
-    assert_equal 'http://www.pgatour.com/leaderboards/current/r012/alt-1.html', pga.get_urls(2008)[4]
+    assert_equal 36, urls.length
+    assert_equal 'http://www.pgatour.com/leaderboards/current/r005/alt-1.html', pga.get_urls(2008)[34]
+  end
+  
+  def test_09_urls
+    pga = PGA.new
+    urls = pga.get_urls(2009)
+    assert_equal 1, urls.length
+    assert_equal 'http://www.pgatour.com/leaderboards/current/r016/alt-1.html', pga.get_urls(2009)[0]
   end
   
   def test_tourn_info
     pga = PGA.new
-    flexmock(pga).should_receive(:open).with(pga.get_urls(2008)[4]).and_return{
-      @test_leaderboard
-    }
-    tourney = pga.tourney_info(pga.get_urls(2008)[4])
+    # flexmock(pga).should_receive(:open).with(pga.get_urls(2008)[4]).and_return{
+    #   @test_leaderboard
+    # }
+    tourney = pga.tourney_info("http://www.pgatour.com/leaderboards/current/r005/alt-1.html")
     assert_equal "AT&T Pebble Beach National Pro-Am", tourney.name
-    assert_equal "Monday Feb 4 - Sunday Feb 10, 2008", tourney.dates
+    assert_equal "Monday Feb 9 - Sunday Feb 15, 2009", tourney.dates
     assert_equal "Pebble Beach Golf Links . Pebble Beach, Calif.", tourney.course
   end
   
-  def test_to_screen
-    pga = PGA.new
-    flexmock(pga).should_receive(:open).with(pga.get_urls(2008)[4]).and_return{
-      @test_leaderboard
-    }
-    players = pga.friendly_structure(pga.fetch(pga.get_urls(2008)[4], true))
-    # players.each do |p|
-    #   puts "#{p.pos} :: #{p.name} #{p.fname} #{p.lname} #{p.start} #{p.thru} #{p.to_par}"
-    # end
-    #assert_equal 1024, pga.to_screen.length 
-  end
-  
-  
+    
   
 end

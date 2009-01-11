@@ -21,21 +21,84 @@ end
 
 module CARL_SPACKLER
   VERSION = '0.6.0'
+  
+  class Player
 
+    SPECIALS = []
+    LAST_ONE_NAMES = ["Olazabal", "Broeck", "Jimenez"] #for names where last 1 name = lname
+    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt"] #for names where last 2 names = lname
+    IGNORES =  [ "(", ")"]
+    
+    def initialize(scraped_full_name)
+      @full_name = scraped_full_name
+      @fname = ""
+      @lname = ""
+      self.parse_clean_name
+    end
+
+    attr_reader :fname, :lname, :full_name #lname may include spaces to accomodate "Berganio Jr.", "Love III", etc
+
+    def translate_crazy_name_char(special_char)
+      special_char.strip() #really just a stub for now
+    end
+
+    def flatten name
+      #flatten special characters to non-freakish ASCII.  E.g. different than straight flatten, make é = e (not e'')
+      re = /\(\w{2}\)/ #strip out course in parens E.g. Davis Love III (PB)
+      processed = name.gsub(re, "")
+      #get rid of commas in name
+      processed = processed.gsub(/,/, "")
+      processed
+    end
+
+    def parse_clean_name
+      # take full name and break it apart based on some simple rules
+      # later may use Bayesian techniques
+      names = self.flatten(@full_name).split(" ")
+      if names.length == 2 #normal
+        @fname = flatten(names[0])
+        @lname = flatten(names[1])
+      elsif names.length == 3
+        # check if any parts of the scraped_full_name match with CONSTANTS
+        names.each do |nm|
+          if LAST_ONE_NAMES.include?(nm) #one of the names indicates it's a 3 part name
+            @lname = flatten(names[2])
+            @fname = flatten(names[0]) + " " + flatten(names[1])
+          elsif LAST_TWO_NAMES.include?(nm) #one of the names indicates it's a jr, III name
+            @lname = flatten(names[1]) + " " + flatten(names[2])
+            @fname = flatten(names[0]) 
+          else #some untrapped 3 part name that doesn't match either case
+            #split as if it's LAST_TWO_NAMES
+            @lname = flatten(names[2]) + " " + flatten(names[1])
+            @fname = flatten(names[0])
+          end
+        end
+      end
+    end
+
+  end
+  
   class PGA
         
     def get_urls(year)
-      if year == 2008
+      if year == 2007
+        urls = []
+      elsif year == 2008
         # diff format: r476 
-        # html data urls for 2008  
         urls = %w(
                   r045 r060 r505 r029 r032 r028 r020 r480 r023 r034 r035 r030
                   r003 r004 r483 r018 r054 r481 r012 r019 r022 r021 r025 r471 
-                  r472 r013 r041 r047 r464 r482 r475 r010 r457 r007 r005 r027 
+                  r472 r013 r041 r047 r464 r482 r475 r010 r457 r007 r005 r027  
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
-      elsif year == 2007
+      elsif year == 2009
+        urls = %w(
+                  r016
+                ).map { |t|
+                  "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
+                }
+      elsif year == 2010
         urls = []
       else
         urls = []
@@ -64,8 +127,8 @@ module CARL_SPACKLER
           {:name => "Deutsche Bank Championship"}
         ]
         
-        # div.tourTourSubName not defined
-        if doc.css('div.tourTournSubName').first == nil
+        true_or_false = (doc.css('div.tourTournSubName').first == nil)
+        if true_or_false
           # name doesn't exist in markup, therefore lookup in hash
           if url == "http://www.pgatour.com/leaderboards/current/r027/alt-1.html"
             tourn.name = tourn_misfits[0][:name]
@@ -77,19 +140,23 @@ module CARL_SPACKLER
             tourn.name = tourn_misfits[3][:name]
           end
         else
-          tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv.gsub!(/'/, "")
+          tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv #.gsub!(/'/, "")
         end   
         
         if doc.css('div.tourTournNameDates').first == nil
           #some leaderboards have different formats:
           tourn.dates = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[0]
-          tourn.course = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[1].gsub!(/'/, "")
+          tourn.course = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[1]#.gsub!(/'/, "")
           #puts tourn.dates #puts tourn.course
         else
           tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournNameDates') == nil 
-          tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv.gsub!(/'/, "") #unless doc.css('div.tourTournHeadLinks') == nil
+          tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv#gsub!(/'/, "") #unless doc.css('div.tourTournHeadLinks') == nil
           #tourn.img = doc.css('div.tourTournLogo').first.inner_html
         end
+        
+        tourn.name = tourn.name.gsub(/'/, '')
+        tourn.course = tourn.course.gsub(/'/, '')
+        puts "scraped Tourney Name: #{tourn.name}"
         
         tourn
     end
@@ -143,8 +210,13 @@ module CARL_SPACKLER
         playa.pos = p[1]
         playa.start = p[2]
         playa.name = p[3]
-        playa.fname = p[3].split(" ")[0] #need to improve this
-        playa.lname = p[3].split(" ")[1] #need to improve this
+        this_player = Player.new(playa.name)
+        #puts "this_player: #{this_player}"
+        # playa.fname = p[3].split(" ")[0] #need to improve this
+        # playa.lname = p[3].split(" ")[1] #need to improve this
+        playa.fname = this_player.fname
+        playa.lname = this_player.lname
+        #puts "lname: #{playa.lname}"
         playa.today = p[4]
         playa.thru = p[5]
         playa.to_par = p[6]
