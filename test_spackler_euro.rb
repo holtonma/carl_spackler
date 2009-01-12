@@ -9,12 +9,12 @@ class TestCarlSpackler < Test::Unit::TestCase
   
   def setup
     # mocking this out to not hit the network...
-    euro = open("euro_sample1.html") { |f| Nokogiri(f) }
+    euro = open("static/euro_sample1.html") { |f| Nokogiri(f) }
     @test_leaderboard = Nokogiri(euro.to_html).to_s
   end
   
   def test_open_mock_file
-    euro = open("euro_sample1.html") { |f| Nokogiri(f) }
+    euro = open("static/euro_sample1.html") { |f| Nokogiri(f) }
     doc = Nokogiri(euro.to_html)
     assert_equal 117399, doc.to_s.length #make sure we have the correct file
     assert_equal Nokogiri::HTML::Document, doc.class

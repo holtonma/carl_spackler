@@ -9,12 +9,12 @@ class TestCarlSpackler < Test::Unit::TestCase
   
   def setup
     # mocking this out to not hit the network...
-    pga = open("alt-3.html") { |f| Nokogiri(f) }
+    pga = open("static/alt-3.html") { |f| Nokogiri(f) }
     @test_leaderboard = Nokogiri(pga.to_html).to_s
   end
   
   def test_open_mock_file
-    pga = open("alt-3.html") { |f| Nokogiri(f) }
+    pga = open("static/alt-3.html") { |f| Nokogiri(f) }
     doc = Nokogiri(pga.to_html)
     assert_equal 4355, doc.to_s.length #make sure we have the correct file
     assert_equal Nokogiri::HTML::Document, doc.class
