@@ -24,7 +24,7 @@ class Leaderboard
     @players = players
     @db = db #ip, user, pass, db, ...
     @num_inserts = 0
-    @event_id = self.eventid(self.eventnameid(@tourney.name))
+    @event_id = self.eventid(self.eventnameid(@tourney.name), Time.now.year) #lame, need to improve this
     @orphans = [] #players not matched
   end
   
@@ -81,7 +81,7 @@ class Leaderboard
   end
   
   
-  def eventnameid event_name
+  def eventnameid(event_name)
     dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
     tourney = event_name #dbh.escape_string(event_name)
     q = dbh.query("SELECT id FROM event_names
@@ -98,9 +98,9 @@ class Leaderboard
   end
   
   
-  def eventid event_name_id
+  def eventid(event_name_id, year)
     dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
-    q = dbh.query("SELECT id FROM events WHERE name_id = '#{event_name_id.to_i}'")
+    q = dbh.query("SELECT id FROM events WHERE name_id = '#{event_name_id.to_i}' AND year = #{year}")
         
     event_name_id = 0
     q.each{ |row| event_name_id = row[0] }
@@ -108,7 +108,7 @@ class Leaderboard
     event_name_id.to_i
   end  
   
-  def insert_new_event(name, year, dates, course)
+  def insert_new_event(name, year, dates, course, tour="PGA")
     dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
     
     # check event_names:
@@ -119,12 +119,13 @@ class Leaderboard
     end
     
     # check events, and return event_id after insert (or return existing):
-    event_id = self.eventid(name_id)
-    @q_check = dbh.query("SELECT id FROM events WHERE name_id = '#{name_id}'")
+    event_id = self.eventid(name_id, year)
+    @q_check = dbh.query("SELECT id FROM events WHERE name_id = '#{name_id}' AND year = #{year}")
+    
     if event_id == 0 # doesn't exist in events:
       q2 = dbh.query("INSERT INTO events (name_id, year, name, dates, course, scraped)
           VALUES(#{name_id}, #{year}, '#{name}', '#{dates}', '#{course}', 0)")
-      return self.eventid(name_id)
+      return self.eventid(name_id, year)
     else
       return event_id
     end    
@@ -167,7 +168,7 @@ class Leaderboard
     q_history_id.each do |row|
        history_id = row[0]
     end
-    
+    dbh.close
     history_id.to_i
     # return id in golfer_history created or updated
   end

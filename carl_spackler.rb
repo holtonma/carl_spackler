@@ -25,8 +25,8 @@ module CARL_SPACKLER
   class Player
 
     SPECIALS = []
-    LAST_ONE_NAMES = ["Olazabal", "Jimenez", "Johnson", "Singh", "Thompson", "Hicks"] #for names where last 1 name = lname
-    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck", "Wan"] #for names where last 2 names = lname
+    LAST_ONE_NAMES = ["Olazabal", "Jimenez", "Johnson", "Singh", "Thompson", "Hicks", "Wan"] #for names where last 1 name = lname
+    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck"] #for names where last 2 names = lname
     
     def initialize(scraped_full_name)
       @full_name = scraped_full_name
