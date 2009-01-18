@@ -26,7 +26,7 @@ module CARL_SPACKLER
 
     SPECIALS = []
     LAST_ONE_NAMES = ["Olazabal", "Jimenez", "Johnson", "Singh", "Thompson", "Hicks", "Wan"] #for names where last 1 name = lname
-    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck"] #for names where last 2 names = lname
+    LAST_TWO_NAMES = ["V", "IV", "III", "II", "Jr.", "Jr", "Sr.", "Sr", "Jong", "Pelt", "Broeck", "Jonge"] #for names where last 2 names = lname
     
     def initialize(scraped_full_name)
       @full_name = scraped_full_name
@@ -92,7 +92,7 @@ module CARL_SPACKLER
                 }
       elsif year == 2009
         urls = %w(
-                  r016
+                  r016 r006
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }

@@ -10,7 +10,6 @@ require 'mysql'
 require 'ostruct'
 require 'iconv'
 
-
 class DB 
   attr_accessor :ip, :user, :pass, :name
   def initialize(ip, user, pass, name)
@@ -96,7 +95,6 @@ class Leaderboard
     
     event_name_id.to_i
   end
-  
   
   def eventid(event_name_id, year)
     dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
