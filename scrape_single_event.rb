@@ -6,7 +6,7 @@ include CARL_SPACKLER
 
   pga = PGA.new
   
-  url = pga.get_urls(2009)[0]
+  url = pga.get_urls(2009)[2]
   my_db = DB.new("127.0.0.1", "root", "", "tour_data") #ip, user, pass, db_name
   
   all_orphans = []

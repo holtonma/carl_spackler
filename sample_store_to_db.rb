@@ -217,6 +217,15 @@ class Leaderboard
     end
   end
   
+  def update_cut(event_id)
+    dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
+    
+    q_string = "update golfer_history set madecut = -1 where event_id = #{event_id} and thru = '--'"
+    dbh.query(q_string)
+    
+  end
+  
+  
   
   
 end
