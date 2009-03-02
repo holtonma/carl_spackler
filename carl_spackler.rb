@@ -92,7 +92,7 @@ module CARL_SPACKLER
                 }
       elsif year == 2009
         urls = %w(
-                  r016 r006 r002 r003 r004 r005 r007
+                  r016 r006 r002 r003 r004 r005 r007 r457
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
