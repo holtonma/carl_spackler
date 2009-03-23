@@ -92,7 +92,7 @@ module CARL_SPACKLER
                 }
       elsif year == 2009
         urls = %w(
-                  r016 r006 r002 r003 r004 r005 r007 r457
+                  r016 r006 r002 r003 r004 r005 r007 r457 r473 r475
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
@@ -122,7 +122,8 @@ module CARL_SPACKLER
           {:name => "The Barclays"},
           {:name => "BMW Championship"},
           {:name => "The Tour Championship"},
-          {:name => "Deutsche Bank Championship"}
+          {:name => "Deutsche Bank Championship"},
+          {:name => "ca Championship"}
         ]
         
         true_or_false = (doc.css('div.tourTournSubName').first == nil)
@@ -136,11 +137,15 @@ module CARL_SPACKLER
             tourn.name = tourn_misfits[2][:name]
           elsif url == "http://www.pgatour.com/leaderboards/current/r505/alt-1.html"
             tourn.name = tourn_misfits[3][:name]
+          elsif url == "http://www.pgatour.com/leaderboards/current/r473/alt-1.html"
+            tourn.name = tourn_misfits[4][:name]
           end
         else
           tourn.name = doc.css('div.tourTournSubName').first.inner_text.strip().to_ascii_iconv #.gsub!(/'/, "")
         end   
         
+        # tourn.dates = "March 9 - 15, 2009"
+        # tourn.course = "Doral Golf Resort and Spa"
         if doc.css('div.tourTournNameDates').first == nil
           #some leaderboards have different formats:
           tourn.dates = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[0]
