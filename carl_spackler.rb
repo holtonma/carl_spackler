@@ -42,6 +42,7 @@ module CARL_SPACKLER
     end
 
     def flatten name
+      puts name
       #flatten special characters to non-freakish ASCII.  E.g. different than straight flatten, make é = e (not e'')
       re = /\(\w{2}\)/ 
       processed = name.gsub(re, "") #strip out course in parens E.g. Davis Love III (PB)
@@ -92,7 +93,7 @@ module CARL_SPACKLER
                 }
       elsif year == 2009
         urls = %w(
-                  r016 r006 r002 r003 r004 r005 r007 r457 r473 r475
+                  r016 r006 r002 r003 r004 r005 r007 r457 r473 r475 r009 r020
                 ).map { |t|
                   "http://www.pgatour.com/leaderboards/current/#{t}/alt-1.html"
                 }
@@ -337,6 +338,100 @@ module CARL_SPACKLER
   class Nationwide
   end
   
+  
+  class Major
+        
+    def get_urls(year)
+      if year == 2008
+        urls = %w( masters usopen british pgachampionship ).map { |t|
+                  "http://www.majorschampionships.com/#{t}/2008/scoring/index.html"
+                }
+      elsif year == 2009
+        urls = %w( masters usopen british pgachampionship ).map { |t|
+                  "http://www.majorschampionships.com/#{t}/2009/scoring/index.html"
+                }
+      else
+        urls = []
+      end
+      
+      urls
+    end
+    
+    def tourney_info(url, major_name="The Masters")
+        doc = Nokogiri::HTML(open(url))
+        tourn = OpenStruct.new
+        
+        # this totally sux, just getting it ready for this week, have to refactor a bunch of this later
+        tourn.name = major_name
+        tourn.dates = "April 9 - 12, 2009"
+        tourn.course = "Augusta National Golf Club, Augusta, GA"
+        
+        tourn
+    end
+    
+    def fetch(url)
+      doc = Nokogiri::HTML(open(url))
+      
+      player_data = []
+      cells = []
+            
+      #made cut
+      doc.css('table.leaderMain').each do |table|
+        if table.attributes['class'] == 'leaderMain'
+          table.css('tr').each do |row|
+            if row.css('td').length > 9 #exclude ads or 'missed cut' td colspan = 11, etc
+              row.css('td').each do |cel|
+                innertext = cel.inner_text.strip()
+                cells << innertext.to_ascii_iconv
+              end
+            end
+            player_data << cells
+            cells = []
+          end
+        end
+      end
+      
+      player_data.reverse!
+      player_data.pop
+      player_data.pop
+      player_data.reverse!
+      #player_data.pop
+      #player_data.pop
+      #player_data
+      
+      player_data
+    end
+    
+    def friendly_structure player_data
+      # take player_data and turn it into array of Ostructs
+      players = []
+      player_data.each do |p|
+        next unless (p.length > 0 && p[0] != "Pos")
+        playa = OpenStruct.new
+        # extract data from PGA cells:
+        playa.pos = p[0]
+        playa.mo = p[1]
+        playa.name = p[2]
+        playa.to_par = p[3]
+        playa.thru = p[4]
+        playa.today = p[5]
+        playa.r1 = p[6] 
+        playa.r2 = p[7]
+        playa.r3 = p[8]
+        playa.r4 = p[9]
+        playa.total = p[10]
+        if playa.name != nil || playa.name != ""
+          this_player = Player.new(playa.name)
+          playa.fname = this_player.fname
+          playa.lname = this_player.lname
+          players << playa
+        end
+      end
+      
+      return players
+    end
+    
+  end #end class Major
 end
 
 
