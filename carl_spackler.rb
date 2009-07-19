@@ -42,12 +42,19 @@ module CARL_SPACKLER
     end
 
     def flatten name
-      puts name
       #flatten special characters to non-freakish ASCII.  E.g. different than straight flatten, make é = e (not e'')
       re = /\(\w{2}\)/ 
       processed = name.gsub(re, "") #strip out course in parens E.g. Davis Love III (PB)
       processed = processed.gsub(/,/, "") #get rid of commas in name
+      
       processed
+    end
+    
+    def clip_am lname 
+      #remove (a) from last name
+      re = /\(a\)/ 
+      
+      lname.gsub(re, "") #get rid of (a) after name and return
     end
 
     def parse_clean_name
@@ -56,7 +63,10 @@ module CARL_SPACKLER
       names = self.flatten(@full_name).split(" ")
       if names.length == 2 #normal
         @fname = flatten(names[0])
-        @lname = flatten(names[1])
+        @lname = clip_am(flatten(names[1]))
+        if @lname == "Waston"
+          @lname = "Watson" #correcting pga.com's misspelling
+        end
       elsif names.length == 3
         # check if any parts of the scraped_full_name match with CONSTANTS
         names.each do |nm|
@@ -151,7 +161,6 @@ module CARL_SPACKLER
           #some leaderboards have different formats:
           tourn.dates = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[0]
           tourn.course = doc.css('div.tourTournSubInfo').first.inner_text.strip().to_ascii_iconv.split(' . ')[1]#.gsub!(/'/, "")
-          #puts tourn.dates #puts tourn.course
         else
           tourn.dates = doc.css('div.tourTournNameDates').first.inner_text.strip().to_ascii_iconv #unless doc.css('div.tourTournNameDates') == nil 
           tourn.course = doc.css('div.tourTournHeadLinks').first.inner_text.strip().to_ascii_iconv#gsub!(/'/, "") #unless doc.css('div.tourTournHeadLinks') == nil
@@ -289,11 +298,8 @@ module CARL_SPACKLER
           cells << cel.inner_text.strip().to_ascii_iconv
         end
         player_data << cells
-        #puts "player_data: #{player_data}"
         cells = []
       end
-      #puts "player_data: #{player_data}"
-      #puts "player_data.length: #{player_data.length}"
       player_data.pop
       player_data.pop
       player_data.pop
@@ -307,7 +313,6 @@ module CARL_SPACKLER
     
     def friendly_structure player_data
       # take player_data and turn it into array of Ostructs
-      #puts "this is player data: #{player_data}"
       players = []
       player_data.each do |p|
         next unless (p.length > 0 && p[1] != "Pos")
@@ -326,7 +331,7 @@ module CARL_SPACKLER
         playa.r3 = p[8]
         playa.r4 = p[9]
         playa.total = (playa.r1.to_i + playa.r2.to_i + playa.r3.to_i + playa.r4.to_i).to_s
-        #puts playa
+        
         players << playa
       end
       
@@ -348,7 +353,8 @@ module CARL_SPACKLER
                 }
       elsif year == 2009
         urls = %w( masters usopen british pgachampionship ).map { |t|
-                  "http://www.majorschampionships.com/#{t}/2009/scoring/index.html"
+                  #{}"http://www.majorschampionships.com/#{t}/2009/scoring/index.cfm"
+                  "http://www.pga.com/openchampionship/2009/scoring/index.cfm"
                 }
       else
         urls = []
@@ -372,14 +378,15 @@ module CARL_SPACKLER
     def fetch(url)
       doc = Nokogiri::HTML(open(url))
       
+			
       player_data = []
       cells = []
             
       #made cut
       doc.css('table.leaderMain').each do |table|
-        if table.attributes['class'] == 'leaderMain'
+        #if table.attributes['class'] == 'leaderMain'
           table.css('tr').each do |row|
-            if row.css('td').length > 9 #exclude ads or 'missed cut' td colspan = 11, etc
+						if row.css('td').length > 9 #exclude ads or 'missed cut' td colspan = 11, etc
               row.css('td').each do |cel|
                 innertext = cel.inner_text.strip()
                 cells << innertext.to_ascii_iconv
@@ -388,7 +395,7 @@ module CARL_SPACKLER
             player_data << cells
             cells = []
           end
-        end
+        #end
       end
       
       player_data.reverse!
@@ -410,16 +417,27 @@ module CARL_SPACKLER
         playa = OpenStruct.new
         # extract data from PGA cells:
         playa.pos = p[0]
+					puts "pos: #{playa.pos}"
         playa.mo = p[1]
+  				puts "mo: #{playa.mo}"
         playa.name = p[2]
+  				puts "name: #{playa.name}"
         playa.to_par = p[3]
+  				puts "to_par: #{playa.to_par}"
         playa.thru = p[4]
+  				puts "thru: #{playa.thru}"
         playa.today = p[5]
+  				puts "today: #{playa.today}"
         playa.r1 = p[6] 
+  				puts "r1: #{playa.r1}"
         playa.r2 = p[7]
+  				puts "r2: #{playa.r2}"
         playa.r3 = p[8]
+  				puts "r3: #{playa.r3}"
         playa.r4 = p[9]
+  				puts "r4: #{playa.r4}"
         playa.total = p[10]
+  				puts "total: #{playa.total}"
         if playa.name != nil || playa.name != ""
           this_player = Player.new(playa.name)
           playa.fname = this_player.fname

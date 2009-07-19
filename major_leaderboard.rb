@@ -37,6 +37,7 @@ class MajorLeaderboard
                         AND golferlastname = '#{last}' ORDER BY golferid DESC")
     golfer_id = -1
     q_name.each do |row|
+			 #puts "golfer_id: #{row[0]}"
        golfer_id = row[0]
     end
     
@@ -108,6 +109,7 @@ class MajorLeaderboard
     # 0 -- insert
     # 1 -- update
     # > 1 -- do nothing
+		#puts "inside golfer_in_tournament_status..."
     dbh.query("SELECT golferid FROM tgolfer WHERE golferid = '#{playa_id}' AND eventid = #{event_id}").num_rows()
   end
     
@@ -115,8 +117,10 @@ class MajorLeaderboard
     dbh = Mysql.real_connect(@db.ip, @db.user, @db.pass, @db.name)
     in_tourney = self.golfer_in_tournament_status(p, event_id)
     g_id = self.name_to_id(p.fname, p.lname)
+    puts "inside store_player(), #{p.fname} #{p.lname}... g_id: #{g_id} ... in_tourney: #{in_tourney}"
+
     if in_tourney == 0 && g_id > 0# insert  ------- '#{p.thru}'
-      puts "golfer not in database: #{p.fname p.lname}"
+      puts "golfer not in database: #{p.fname} #{p.lname}"
     elsif in_tourney == 1 && g_id > 0# update
       to_par = p.to_par.to_i
       today_score = p.today.to_i
@@ -133,10 +137,11 @@ class MajorLeaderboard
                   WHERE 
                   golferid = #{g_id} AND eventid = #{event_id}"
       #puts update_query
-      puts "#{p.lname}, #{p.fname} (#{to_par}) updated (event_id: #{event_id})."
+      puts "#{p.lname}, #{p.fname} (#{to_par} thru: #{p.thru}) updated (event_id: #{event_id})."
       dbh.query(update_query)
     else
       # > 1 means something strange, so don't do anything
+			puts "something strange"
     end
     
     q_history_id = dbh.query("SELECT golferid FROM tgolfer WHERE golferid = #{g_id} AND eventid = #{event_id}")
