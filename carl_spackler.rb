@@ -20,7 +20,7 @@ class String
 end
 
 module CARL_SPACKLER
-  VERSION = '0.6.0'
+  VERSION = '0.7.0'
   
   class Player
 
@@ -354,7 +354,12 @@ module CARL_SPACKLER
       elsif year == 2009
         urls = %w( masters usopen british pgachampionship ).map { |t|
                   #{}"http://www.majorschampionships.com/#{t}/2009/scoring/index.cfm"
-                  "http://www.pga.com/openchampionship/2009/scoring/index.cfm"
+                  "http://www.pga.com/pgachampionship/2009/scoring/index.cfm"
+                }
+      elsif year == 2010
+        urls = %w( masters usopen british pgachampionship ).map { |t|
+                  #"http://www.majorschampionships.com/#{t}/2009/scoring/index.cfm"
+                  "http://www.majorschampionships.com/#{t}/2010/scoring/index.cfm"
                 }
       else
         urls = []
