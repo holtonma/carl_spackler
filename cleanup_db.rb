@@ -13,13 +13,13 @@ where pos = "MDF"
 */
 
 /*
-update events 
+update events
 set year = 2008
 where id > 20
 */
 
 /*
-update events 
+update events
 set year = 2009
 where id > 131
 */

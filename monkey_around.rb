@@ -15,7 +15,7 @@ include CARL_SPACKLER
   #scoresBoard2
   #made cut
   #puts doc.css('div#scoresBoard2 table')
-  
+
   doc.css('div#scoresBoard2 table').each do |table|
     table.css('tr').each do |row|
       #puts "row: #{row.inner_text}"
@@ -24,6 +24,5 @@ include CARL_SPACKLER
       end
     end
   end
-      
 
-  
+

@@ -5,15 +5,15 @@ require 'sample_store_to_db'
 include CARL_SPACKLER
 
   euro = Euro.new
-  
+
   my_db = DB.new("127.0.0.1", "root", "", "tour_data") #ip, user, pass, db_name
   tourney = OpenStruct.new
   tourney.name = "foobarbaz"
   @tourney = tourney
   @players = []
   @lb = Leaderboard.new(@tourney, @players, my_db) #ready to store
-  
-  
+
+
   # open stubbed doc (with Select and with Options)
   # extract all option elements
   # loop through them
@@ -21,8 +21,8 @@ include CARL_SPACKLER
   #   g.
   #   @lb.insert_golfer(lname, fname)
   #   exists = @lb.check_golfer_exists("Holtonomo", "Mark")
-  #   
+  #
   # end
-  
-  
-  
+
+
+

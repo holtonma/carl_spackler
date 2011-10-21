@@ -11,7 +11,7 @@ require 'ostruct'
 
 class TestCarlSpackler < Test::Unit::TestCase
   include CARL_SPACKLER
-  
+
   def setup
     # mocking this out to not hit the network...
     my_db = DB.new("127.0.0.1", "root", "", "tour_data") #ip, user, pass, db_name
@@ -21,7 +21,7 @@ class TestCarlSpackler < Test::Unit::TestCase
     @players = []
     @lb = Leaderboard.new(@tourney, @players, my_db) #ready to store
   end
-  
+
   def test_check_golfer_exists
     exists = @lb.check_golfer_exists("Holtonomo", "Mark")
     assert_equal 0, exists
@@ -29,7 +29,7 @@ class TestCarlSpackler < Test::Unit::TestCase
     puts "exists2: #{exists2}"
     assert_equal 1, exists2
   end
-  
+
   def test_insert_golfer
     foo = @lb.insert_golfer("Button", "Benjamin")
     exists2 = @lb.check_golfer_exists("Button", "Benjamin")
@@ -40,8 +40,8 @@ class TestCarlSpackler < Test::Unit::TestCase
     foo4 = @lb.insert_golfer("FDEZ-CASTAÑO", "Gonzalo")
     exists4 = @lb.check_golfer_exists("FDEZ-CASTAÑO", "Gonzalo")
     assert_equal 1, exists4
-    
-    
+
+
   end
-  
+
 end
